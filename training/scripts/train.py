@@ -36,21 +36,20 @@ except ImportError:
 def train_one_epoch(model, dataloader, criterion, optimizer, device):
     model.train()
     total_loss = 0
-    loss_details = {'loss_formula': 0, 'loss_herb': 0, 'loss_dosage': 0}
+    loss_details = {'loss_herb': 0, 'loss_dosage': 0}
     num_batches = 0
 
     for batch in dataloader:
         symptoms = batch['symptoms'].to(device)
-        formula_target = batch['formula_target'].to(device)
         herb_target = batch['herb_target'].to(device)
         dosage_target = batch['dosage_target'].to(device)
 
         optimizer.zero_grad()
 
-        formula_logits, herb_logits, dosage_pred = model(symptoms)
+        herb_logits, dosage_pred = model(symptoms)
         loss, details = criterion(
-            formula_logits, herb_logits, dosage_pred,
-            formula_target, herb_target, dosage_target
+            herb_logits, dosage_pred,
+            herb_target, dosage_target
         )
 
         loss.backward()
@@ -73,7 +72,6 @@ def train_one_epoch(model, dataloader, criterion, optimizer, device):
 def validate(model, dataloader, criterion, device):
     model.eval()
     total_loss = 0
-    correct_formula = 0
     total_samples = 0
     herb_precision_sum = 0
     herb_recall_sum = 0
@@ -81,21 +79,16 @@ def validate(model, dataloader, criterion, device):
 
     for batch in dataloader:
         symptoms = batch['symptoms'].to(device)
-        formula_target = batch['formula_target'].to(device)
         herb_target = batch['herb_target'].to(device)
         dosage_target = batch['dosage_target'].to(device)
 
-        formula_logits, herb_logits, dosage_pred = model(symptoms)
+        herb_logits, dosage_pred = model(symptoms)
         loss, _ = criterion(
-            formula_logits, herb_logits, dosage_pred,
-            formula_target, herb_target, dosage_target
+            herb_logits, dosage_pred,
+            herb_target, dosage_target
         )
 
         total_loss += loss.item()
-
-        # 方剂分类准确率
-        pred_formula = formula_logits.argmax(dim=-1)
-        correct_formula += (pred_formula == formula_target).sum().item()
         total_samples += symptoms.size(0)
 
         # 药材预测 Precision / Recall
@@ -111,7 +104,6 @@ def validate(model, dataloader, criterion, device):
     n = max(total_samples, 1)
     return {
         'val_loss': total_loss / max(num_batches, 1),
-        'formula_accuracy': correct_formula / n,
         'herb_precision': herb_precision_sum / n,
         'herb_recall': herb_recall_sum / n,
     }
@@ -171,24 +163,21 @@ def main():
         symptom_vocab = json.load(f)
     with open(os.path.join(args.data_dir, 'herb_vocab.json'), 'r', encoding='utf-8') as f:
         herb_vocab = json.load(f)
-    with open(os.path.join(args.data_dir, 'formula_vocab.json'), 'r', encoding='utf-8') as f:
-        formula_vocab = json.load(f)
 
     num_symptoms = len(symptom_vocab)
     num_herbs = len(herb_vocab)
-    num_formulas = len(formula_vocab)
 
-    print(f'   症状: {num_symptoms} | 药材: {num_herbs} | 方剂: {num_formulas}')
+    print(f'   症状: {num_symptoms} | 药材: {num_herbs}')
     print(f'   训练: {meta["train_samples"]} | 验证: {meta["val_samples"]}')
 
     # 数据集
     train_dataset = TCMDataset(
         os.path.join(args.data_dir, 'train_data.json'),
-        symptom_vocab, herb_vocab, formula_vocab, augment=True
+        symptom_vocab, herb_vocab, augment=True
     )
     val_dataset = TCMDataset(
         os.path.join(args.data_dir, 'val_data.json'),
-        symptom_vocab, herb_vocab, formula_vocab, augment=False
+        symptom_vocab, herb_vocab, augment=False
     )
 
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True,
@@ -200,7 +189,6 @@ def main():
     print(f'\n🧠 构建模型 (embed={args.embed_dim}, heads={args.num_heads}, layers={args.num_layers})...')
     model = TCMFormulaNet(
         num_symptoms=num_symptoms,
-        num_formulas=num_formulas,
         num_herbs=num_herbs,
         embed_dim=args.embed_dim,
         num_heads=args.num_heads,
@@ -256,18 +244,18 @@ def main():
         # 打印日志
         if (epoch + 1) % 5 == 0 or epoch == 0:
             print(f'Epoch {epoch+1:4d}/{args.epochs} | '
-                  f'Train: {train_loss:.4f} | '
+                  f'Train: {train_loss:.4f} (H:{train_details.get("loss_herb", 0):.4f} D:{train_details.get("loss_dosage", 0):.4f}) | '
                   f'Val: {val_metrics["val_loss"]:.4f} | '
-                  f'Acc: {val_metrics["formula_accuracy"]*100:.1f}% | '
                   f'P: {val_metrics["herb_precision"]:.3f} | '
                   f'R: {val_metrics["herb_recall"]:.3f} | '
                   f'{elapsed:.1f}s')
 
         # TensorBoard
         if writer:
-            writer.add_scalar('Loss/train', train_loss, epoch)
-            writer.add_scalar('Loss/val', val_metrics['val_loss'], epoch)
-            writer.add_scalar('Accuracy/formula', val_metrics['formula_accuracy'], epoch)
+            writer.add_scalar('Loss/train_total', train_loss, epoch)
+            writer.add_scalar('Loss/train_herb', train_details.get('loss_herb', 0), epoch)
+            writer.add_scalar('Loss/train_dosage', train_details.get('loss_dosage', 0), epoch)
+            writer.add_scalar('Loss/val_total', val_metrics['val_loss'], epoch)
             writer.add_scalar('Metrics/herb_precision', val_metrics['herb_precision'], epoch)
             writer.add_scalar('Metrics/herb_recall', val_metrics['herb_recall'], epoch)
             writer.add_scalar('LR', optimizer.param_groups[0]['lr'], epoch)

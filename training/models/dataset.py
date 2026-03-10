@@ -20,13 +20,12 @@ class TCMDataset(Dataset):
         target: (方剂索引, 药材 multi-hot, 剂量向量)
     """
 
-    def __init__(self, data_path, symptom_vocab, herb_vocab, formula_vocab, augment=True):
+    def __init__(self, data_path, symptom_vocab, herb_vocab, augment=True):
         """
         Args:
             data_path: 训练数据 JSON 路径
             symptom_vocab: {symptom_name: index} 词表
             herb_vocab: {herb_name: index} 词表
-            formula_vocab: {formula_name: index} 词表
             augment: 是否做数据增强
         """
         with open(data_path, 'r', encoding='utf-8') as f:
@@ -34,10 +33,8 @@ class TCMDataset(Dataset):
 
         self.symptom_vocab = symptom_vocab
         self.herb_vocab = herb_vocab
-        self.formula_vocab = formula_vocab
         self.num_symptoms = len(symptom_vocab)
         self.num_herbs = len(herb_vocab)
-        self.num_formulas = len(formula_vocab)
         self.augment = augment
 
     def __len__(self):
@@ -62,9 +59,6 @@ class TCMDataset(Dataset):
             if symptom in self.symptom_vocab:
                 symptom_vec[self.symptom_vocab[symptom]] = 1.0
 
-        # 方剂目标 (分类索引)
-        formula_idx = self.formula_vocab.get(sample['formula_name'], 0)
-
         # 药材 multi-hot 向量
         herb_vec = torch.zeros(self.num_herbs)
         dosage_vec = torch.zeros(self.num_herbs)
@@ -78,7 +72,6 @@ class TCMDataset(Dataset):
 
         return {
             'symptoms': symptom_vec,
-            'formula_target': torch.tensor(formula_idx, dtype=torch.long),
             'herb_target': herb_vec,
             'dosage_target': dosage_vec,
         }

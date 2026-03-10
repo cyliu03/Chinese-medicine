@@ -58,18 +58,16 @@ class TransformerBlock(nn.Module):
 
 class TCMFormulaNet(nn.Module):
     """
-    中医方剂推荐神经网络
+    中医自动开方神经网络 (TCM Doctor Model)
 
     多任务学习:
-      - Task 1: 方剂分类 (从知识库中选择最匹配的经典方剂)
-      - Task 2: 药材预测 (预测处方中应包含哪些药材, multi-label)
-      - Task 3: 剂量回归 (预测每味药的推荐剂量)
+      - Task 1: 药材预测 (预测针对这些症状应该开什么药材, multi-label)
+      - Task 2: 剂量回归 (预测每味药的推荐剂量)
     """
 
     def __init__(
         self,
         num_symptoms,
-        num_formulas,
         num_herbs,
         embed_dim=256,
         num_heads=8,
@@ -80,7 +78,6 @@ class TCMFormulaNet(nn.Module):
         super().__init__()
 
         self.num_symptoms = num_symptoms
-        self.num_formulas = num_formulas
         self.num_herbs = num_herbs
         self.embed_dim = embed_dim
 
@@ -88,7 +85,6 @@ class TCMFormulaNet(nn.Module):
         self.symptom_embed = SymptomEmbedding(num_symptoms, embed_dim, dropout)
 
         # 将嵌入展开为序列 (用于Transformer)
-        # 使用可学习的 position tokens
         self.num_tokens = 8  # 将症状信息分散到8个token中
         self.token_proj = nn.Linear(embed_dim, self.num_tokens * embed_dim)
         self.pos_embed = nn.Parameter(torch.randn(1, self.num_tokens, embed_dim) * 0.02)
@@ -102,15 +98,7 @@ class TCMFormulaNet(nn.Module):
         # 全局池化后的表示
         self.pool_norm = nn.LayerNorm(embed_dim)
 
-        # Task 1: 方剂分类头
-        self.formula_head = nn.Sequential(
-            nn.Linear(embed_dim, embed_dim // 2),
-            nn.GELU(),
-            nn.Dropout(dropout),
-            nn.Linear(embed_dim // 2, num_formulas),
-        )
-
-        # Task 2: 药材预测头 (multi-label sigmoid)
+        # Task 1: 药材预测头 (multi-label sigmoid)
         self.herb_head = nn.Sequential(
             nn.Linear(embed_dim, embed_dim),
             nn.GELU(),
@@ -118,13 +106,13 @@ class TCMFormulaNet(nn.Module):
             nn.Linear(embed_dim, num_herbs),
         )
 
-        # Task 3: 剂量回归头
+        # Task 2: 剂量回归头
         self.dosage_head = nn.Sequential(
             nn.Linear(embed_dim + num_herbs, embed_dim // 2),
             nn.GELU(),
             nn.Dropout(dropout),
             nn.Linear(embed_dim // 2, num_herbs),
-            nn.ReLU(),  # 剂量不能为负
+            nn.ReLU(),  # 预测的是 log(1+dosage)，为非负
         )
 
         self._init_weights()
@@ -143,9 +131,8 @@ class TCMFormulaNet(nn.Module):
             symptoms: (batch, num_symptoms) multi-hot 症状向量
 
         Returns:
-            formula_logits: (batch, num_formulas) 方剂分类 logits
             herb_logits: (batch, num_herbs) 药材预测 logits
-            dosage_pred: (batch, num_herbs) 剂量预测 (克)
+            dosage_pred: (batch, num_herbs) 剂量预测 (log scale)
         """
         batch_size = symptoms.size(0)
 
@@ -166,7 +153,6 @@ class TCMFormulaNet(nn.Module):
         pooled = self.pool_norm(pooled)
 
         # 5. 多任务输出
-        formula_logits = self.formula_head(pooled)
         herb_logits = self.herb_head(pooled)
 
         # 剂量预测需要知道哪些药材被选中
@@ -174,37 +160,32 @@ class TCMFormulaNet(nn.Module):
         dosage_input = torch.cat([pooled, herb_probs], dim=-1)
         dosage_pred = self.dosage_head(dosage_input)
 
-        return formula_logits, herb_logits, dosage_pred
+        return herb_logits, dosage_pred
 
-    def predict(self, symptoms, top_k=3):
+    def predict(self, symptoms):
         """
-        推理模式：给定症状，返回top_k方剂推荐
+        推理模式：给定症状，返回推荐药材和剂量
 
         Returns:
-            formula_indices: top_k 方剂索引
-            formula_probs: top_k 方剂概率
-            herb_indices: 预测的药材索引列表
+            herb_selected: 预测的药材索引列表 (multi-hot)
             herb_probs: 药材概率
-            dosages: 预测剂量
+            dosages: 预测真实剂量(克)
         """
         self.eval()
         with torch.no_grad():
-            formula_logits, herb_logits, dosage_pred = self.forward(symptoms)
-
-            # 方剂 Top-K
-            formula_probs = F.softmax(formula_logits, dim=-1)
-            top_probs, top_indices = torch.topk(formula_probs, k=min(top_k, self.num_formulas), dim=-1)
+            herb_logits, dosage_pred_log = self.forward(symptoms)
 
             # 药材预测 (概率 > 0.5 的被选中)
             herb_probs = torch.sigmoid(herb_logits)
             herb_selected = (herb_probs > 0.5).long()
 
+            # 还原真实剂量: exp(x) - 1
+            dosages = torch.expm1(dosage_pred_log)
+
             return {
-                'formula_indices': top_indices,
-                'formula_probs': top_probs,
                 'herb_selected': herb_selected,
                 'herb_probs': herb_probs,
-                'dosages': dosage_pred,
+                'dosages': dosages,
             }
 
 
@@ -212,53 +193,44 @@ class MultiTaskLoss(nn.Module):
     """
     多任务学习损失函数
 
-    自动平衡三个任务的损失权重 (Uncertainty Weighting)
+    自动平衡两个任务的损失权重 (Uncertainty Weighting)
     """
 
     def __init__(self):
         super().__init__()
         # 可学习的任务权重 (log variance)
-        self.log_var_formula = nn.Parameter(torch.zeros(1))
         self.log_var_herb = nn.Parameter(torch.zeros(1))
         self.log_var_dosage = nn.Parameter(torch.zeros(1))
 
-    def forward(self, formula_logits, herb_logits, dosage_pred,
-                formula_target, herb_target, dosage_target):
+    def forward(self, herb_logits, dosage_pred_log, herb_target, dosage_target):
         """
         Args:
-            formula_logits: (batch, num_formulas)
             herb_logits: (batch, num_herbs)
-            dosage_pred: (batch, num_herbs)
-            formula_target: (batch,) 方剂类别索引
+            dosage_pred_log: (batch, num_herbs) log scale
             herb_target: (batch, num_herbs) multi-hot
-            dosage_target: (batch, num_herbs) 剂量标签 (克)
+            dosage_target: (batch, num_herbs) 真实剂量标签 (克)
         """
-        # Task 1: 方剂分类 — Cross Entropy
-        loss_formula = F.cross_entropy(formula_logits, formula_target)
-
-        # Task 2: 药材预测 — Binary Cross Entropy
+        # Task 1: 药材预测 — Binary Cross Entropy
         loss_herb = F.binary_cross_entropy_with_logits(herb_logits, herb_target)
 
-        # Task 3: 剂量回归 — MSE (只在有药材的位置计算)
+        # Task 2: 剂量回归 — MSE (只在有药材的位置计算, 目标转为 log1p 避免极大Loss)
         mask = herb_target > 0
         if mask.any():
-            loss_dosage = F.mse_loss(dosage_pred[mask], dosage_target[mask])
+            dosage_target_log = torch.log1p(dosage_target[mask])
+            loss_dosage = F.mse_loss(dosage_pred_log[mask], dosage_target_log)
         else:
-            loss_dosage = torch.tensor(0.0, device=formula_logits.device)
+            loss_dosage = torch.tensor(0.0, device=herb_logits.device)
 
         # 不确定性加权 (Kendall et al., 2018)
-        precision_formula = torch.exp(-self.log_var_formula)
         precision_herb = torch.exp(-self.log_var_herb)
         precision_dosage = torch.exp(-self.log_var_dosage)
 
         total_loss = (
-            precision_formula * loss_formula + self.log_var_formula +
             precision_herb * loss_herb + self.log_var_herb +
             precision_dosage * loss_dosage + self.log_var_dosage
         )
 
         return total_loss, {
-            'loss_formula': loss_formula.item(),
             'loss_herb': loss_herb.item(),
             'loss_dosage': loss_dosage.item(),
             'total_loss': total_loss.item(),
