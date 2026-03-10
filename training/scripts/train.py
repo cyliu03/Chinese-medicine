@@ -155,7 +155,8 @@ def main():
     print(f'  设备: {device}')
     if device.type == 'cuda':
         print(f'  GPU:  {torch.cuda.get_device_name(0)}')
-        print(f'  显存: {torch.cuda.get_device_properties(0).total_mem / 1e9:.1f} GB')
+        gpu_mem = getattr(torch.cuda.get_device_properties(0), 'total_memory', None) or getattr(torch.cuda.get_device_properties(0), 'total_mem', 0)
+        print(f'  显存: {gpu_mem / 1e9:.1f} GB')
     print(f'  时间: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
     print('=' * 60)
 

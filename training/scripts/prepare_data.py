@@ -120,12 +120,98 @@ def build_training_samples(formulas_data, symptom_vocab, herb_vocab, num_augment
     return samples
 
 
+def load_raw_dataset(raw_dir):
+    """从 download_dataset.py 生成的原始数据加载"""
+    merged_path = os.path.join(raw_dir, 'merged_prescriptions.json')
+    if not os.path.exists(merged_path):
+        raise FileNotFoundError(f'{merged_path} 不存在，请先运行 scripts/download_dataset.py')
+
+    with open(merged_path, 'r', encoding='utf-8') as f:
+        prescriptions = json.load(f)
+
+    # 提取所有症状和药材用于构建词表
+    all_symptoms = set()
+    all_herbs = set()
+    formula_names = set()
+
+    for p in prescriptions:
+        for s in p.get('symptoms', []):
+            all_symptoms.add(s)
+        for h in p.get('herbs', []):
+            all_herbs.add(h['name'])
+        if p.get('formula_name'):
+            formula_names.add(p['formula_name'])
+
+    # 为没有方剂名的 PTM 处方生成伪方剂名 (基于药材组合)
+    # 相同药材组合的处方归为同一"方剂"
+    formula_map = {}
+    for p in prescriptions:
+        if not p.get('formula_name'):
+            herb_key = '_'.join(sorted(h['name'] for h in p['herbs']))
+            if herb_key not in formula_map:
+                formula_map[herb_key] = f'处方_{len(formula_map)+1:05d}'
+            p['formula_name'] = formula_map[herb_key]
+            formula_names.add(p['formula_name'])
+
+    return prescriptions, all_symptoms, all_herbs, formula_names
+
+
+def build_samples_from_raw(prescriptions, symptom_vocab, herb_vocab, formula_vocab, num_augmented=5):
+    """从原始处方数据生成训练样本"""
+    samples = []
+
+    for p in prescriptions:
+        symptoms = p.get('symptoms', [])
+        herbs_info = p.get('herbs', [])
+        formula_name = p.get('formula_name', '')
+
+        if not symptoms or not herbs_info:
+            continue
+
+        # 过滤：只保留在词表中的症状和药材
+        valid_symptoms = [s for s in symptoms if s in symptom_vocab]
+        valid_herbs = [
+            {'name': h['name'], 'dosage': h.get('dosage', 9.0)}
+            for h in herbs_info if h['name'] in herb_vocab
+        ]
+
+        if not valid_symptoms or not valid_herbs:
+            continue
+
+        # 基础样本
+        samples.append({
+            'symptoms': valid_symptoms,
+            'formula_name': formula_name,
+            'herbs': valid_herbs,
+        })
+
+        # 数据增强 (PTM数据量大，减少增强倍数)
+        aug_count = num_augmented if p.get('is_classic') else min(num_augmented, 3)
+        for _ in range(aug_count):
+            if len(valid_symptoms) <= 1:
+                aug_symptoms = valid_symptoms[:]
+            else:
+                k = random.randint(max(1, len(valid_symptoms) // 2), len(valid_symptoms))
+                aug_symptoms = random.sample(valid_symptoms, k)
+            samples.append({
+                'symptoms': aug_symptoms,
+                'formula_name': formula_name,
+                'herbs': valid_herbs,
+            })
+
+    return samples
+
+
 def main():
     parser = argparse.ArgumentParser(description='准备中医方剂训练数据')
     parser.add_argument('--data_dir', type=str, default='../src/data',
                         help='原始数据目录 (包含 herbs.json, formulas.json, symptoms.json)')
     parser.add_argument('--output_dir', type=str, default='data',
                         help='输出数据目录')
+    parser.add_argument('--raw_dir', type=str, default='data/raw',
+                        help='下载的原始数据目录 (download_dataset.py 输出)')
+    parser.add_argument('--use_raw', action='store_true',
+                        help='使用下载的大规模原始数据集 (PTM + 经典方剂)')
     parser.add_argument('--num_augmented', type=int, default=20,
                         help='每个方剂的增强样本数')
     parser.add_argument('--val_ratio', type=float, default=0.15,
@@ -140,43 +226,69 @@ def main():
     print('  中医方剂推荐 — 数据预处理')
     print('=' * 60)
 
-    # 加载原始数据
-    print(f'\n📂 加载数据: {args.data_dir}')
+    if args.use_raw:
+        # ========== 大规模数据集模式 ==========
+        print(f'\n📂 使用大规模数据集: {args.raw_dir}')
+        prescriptions, all_symptoms, all_herbs, formula_names = load_raw_dataset(args.raw_dir)
+        print(f'   ✅ 处方: {len(prescriptions)} 个')
+        print(f'   · 药材种类: {len(all_herbs)}')
+        print(f'   · 症状标签: {len(all_symptoms)}')
+        print(f'   · 方剂/处方类型: {len(formula_names)}')
 
-    with open(os.path.join(args.data_dir, 'herbs.json'), 'r', encoding='utf-8') as f:
-        herbs_data = json.load(f)
-    print(f'   ✅ 药材: {len(herbs_data)} 味')
+        # 构建词表
+        print('\n📝 构建词表...')
+        symptom_vocab = {s: i for i, s in enumerate(sorted(all_symptoms))}
+        herb_vocab = {h: i for i, h in enumerate(sorted(all_herbs))}
+        formula_vocab = {f: i for i, f in enumerate(sorted(formula_names))}
 
-    with open(os.path.join(args.data_dir, 'formulas.json'), 'r', encoding='utf-8') as f:
-        formulas_data = json.load(f)
-    print(f'   ✅ 方剂: {len(formulas_data)} 个')
+        print(f'   · 症状标签: {len(symptom_vocab)} 个')
+        print(f'   · 药材:     {len(herb_vocab)} 味')
+        print(f'   · 方剂:     {len(formula_vocab)} 个')
 
-    with open(os.path.join(args.data_dir, 'symptoms.json'), 'r', encoding='utf-8') as f:
-        symptoms_data = json.load(f)
-    print(f'   ✅ 症状数据: 已加载')
+        # 保存词表
+        for name, vocab in [('symptom_vocab', symptom_vocab), ('herb_vocab', herb_vocab), ('formula_vocab', formula_vocab)]:
+            with open(os.path.join(args.output_dir, f'{name}.json'), 'w', encoding='utf-8') as f:
+                json.dump(vocab, f, ensure_ascii=False, indent=2)
+        print('   ✅ 词表已保存')
 
-    # 构建词表
-    print('\n📝 构建词表...')
-    symptom_vocab, herb_vocab, formula_vocab = build_vocabs(herbs_data, formulas_data, symptoms_data)
-    print(f'   · 症状标签: {len(symptom_vocab)} 个')
-    print(f'   · 药材:     {len(herb_vocab)} 味')
-    print(f'   · 方剂:     {len(formula_vocab)} 个')
+        # 生成训练样本
+        aug = min(args.num_augmented, 3)  # 大数据集减少增强
+        print(f'\n🔧 生成训练样本 (增强倍数: {aug}x for PTM, {args.num_augmented}x for 经典方)...')
+        all_samples = build_samples_from_raw(prescriptions, symptom_vocab, herb_vocab, formula_vocab, args.num_augmented)
 
-    # 保存词表
-    with open(os.path.join(args.output_dir, 'symptom_vocab.json'), 'w', encoding='utf-8') as f:
-        json.dump(symptom_vocab, f, ensure_ascii=False, indent=2)
+    else:
+        # ========== 原有小数据集模式 ==========
+        print(f'\n📂 加载数据: {args.data_dir}')
 
-    with open(os.path.join(args.output_dir, 'herb_vocab.json'), 'w', encoding='utf-8') as f:
-        json.dump(herb_vocab, f, ensure_ascii=False, indent=2)
+        with open(os.path.join(args.data_dir, 'herbs.json'), 'r', encoding='utf-8') as f:
+            herbs_data = json.load(f)
+        print(f'   ✅ 药材: {len(herbs_data)} 味')
 
-    with open(os.path.join(args.output_dir, 'formula_vocab.json'), 'w', encoding='utf-8') as f:
-        json.dump(formula_vocab, f, ensure_ascii=False, indent=2)
+        with open(os.path.join(args.data_dir, 'formulas.json'), 'r', encoding='utf-8') as f:
+            formulas_data = json.load(f)
+        print(f'   ✅ 方剂: {len(formulas_data)} 个')
 
-    print('   ✅ 词表已保存')
+        with open(os.path.join(args.data_dir, 'symptoms.json'), 'r', encoding='utf-8') as f:
+            symptoms_data = json.load(f)
+        print(f'   ✅ 症状数据: 已加载')
 
-    # 生成训练样本
-    print(f'\n🔧 生成训练样本 (每方 {args.num_augmented} 个增强样本)...')
-    all_samples = build_training_samples(formulas_data, symptom_vocab, herb_vocab, args.num_augmented)
+        # 构建词表
+        print('\n📝 构建词表...')
+        symptom_vocab, herb_vocab, formula_vocab = build_vocabs(herbs_data, formulas_data, symptoms_data)
+        print(f'   · 症状标签: {len(symptom_vocab)} 个')
+        print(f'   · 药材:     {len(herb_vocab)} 味')
+        print(f'   · 方剂:     {len(formula_vocab)} 个')
+
+        # 保存词表
+        for name, vocab in [('symptom_vocab', symptom_vocab), ('herb_vocab', herb_vocab), ('formula_vocab', formula_vocab)]:
+            with open(os.path.join(args.output_dir, f'{name}.json'), 'w', encoding='utf-8') as f:
+                json.dump(vocab, f, ensure_ascii=False, indent=2)
+        print('   ✅ 词表已保存')
+
+        # 生成训练样本
+        print(f'\n🔧 生成训练样本 (每方 {args.num_augmented} 个增强样本)...')
+        all_samples = build_training_samples(formulas_data, symptom_vocab, herb_vocab, args.num_augmented)
+
     print(f'   · 总样本数: {len(all_samples)}')
 
     # 划分训练/验证集
@@ -204,6 +316,7 @@ def main():
         'train_samples': len(train_samples),
         'val_samples': len(val_samples),
         'num_augmented_per_formula': args.num_augmented,
+        'use_raw': args.use_raw,
     }
     with open(os.path.join(args.output_dir, 'meta.json'), 'w', encoding='utf-8') as f:
         json.dump(meta, f, ensure_ascii=False, indent=2)

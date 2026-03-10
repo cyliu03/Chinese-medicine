@@ -1,8 +1,8 @@
 # 中药AI对症下药系统训练数据与模型
-training/checkpoints/
-training/logs/
-training/data/*.json
-training/models/tcm_model.pt
+checkpoints/
+logs/
+data/
+models/tcm_model.pt
 *.onnx
 __pycache__/
 *.pyc
