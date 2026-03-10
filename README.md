@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏥 岐黄AI — 中医智能辅助诊疗系统
 
-## Getting Started
+基于深度学习的中医四诊合参智能系统，通过望闻问切采集患者信息，AI辅助推荐经典方剂，医生审核确保安全有效。
 
-First, run the development server:
+## ✨ 功能特性
+
+| 模块 | 功能 |
+|------|------|
+| **患者端** | 望诊（面色/舌象/拍照识图）→ 闻诊 → 问诊（25种症状多选）→ 切诊（19种脉象） |
+| **AI引擎** | 证候标签提取 + Transformer方剂匹配 + 自动加减建议 |
+| **结果页** | 推荐Top3方剂，标注来源（作者/典籍）、匹配度、修改理由 |
+| **医生端** | 待审列表 → 双栏审核详情 → 批准/修改/驳回 |
+| **知识库** | 120味中药材 + 45个经典方剂（伤寒论/金匮/温病条辨等） |
+
+## 🛠️ 技术栈
+
+- **前端**: Next.js + React + Vanilla CSS（中国风水墨主题）
+- **AI引擎**: PyTorch Transformer（多任务学习）
+- **数据**: 中药材/方剂 JSON 知识库
+
+## 🚀 快速开始
+
+### 前端 (Web界面)
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# 访问 http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 深度学习训练 (需要 GPU)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+cd training
+pip install -r requirements.txt
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# 1. 预处理数据
+python scripts/prepare_data.py
 
-## Learn More
+# 2. 训练模型
+python scripts/train.py --device cuda --epochs 200
 
-To learn more about Next.js, take a look at the following resources:
+# 3. 评估模型
+python scripts/evaluate.py --checkpoint checkpoints/best_model.pt
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# 4. 导出模型
+python scripts/export_model.py --checkpoint checkpoints/best_model.pt
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 5090 GPU 推荐训练参数
 
-## Deploy on Vercel
+```bash
+python scripts/train.py \
+    --device cuda \
+    --epochs 500 \
+    --batch_size 64 \
+    --lr 0.0005 \
+    --embed_dim 512 \
+    --num_layers 6 \
+    --dim_feedforward 1024
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📁 项目结构
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+├── src/                    # Next.js 前端
+│   ├── app/                # 页面路由
+│   │   ├── page.js         # 首页
+│   │   ├── patient/        # 患者问诊
+│   │   ├── result/         # AI结果
+│   │   └── doctor/         # 医生审核
+│   ├── components/         # React 组件
+│   ├── context/            # 全局状态
+│   ├── data/               # 中药知识库
+│   └── lib/                # AI引擎 (规则匹配)
+├── training/               # 深度学习训练
+│   ├── models/             # 模型定义
+│   │   ├── tcm_net.py      # TCMFormulaNet
+│   │   └── dataset.py      # 数据集
+│   ├── scripts/            # 训练脚本
+│   │   ├── prepare_data.py # 数据预处理
+│   │   ├── train.py        # 训练
+│   │   ├── evaluate.py     # 评估
+│   │   └── export_model.py # 导出
+│   └── requirements.txt    # Python 依赖
+```
+
+## ⚠️ 免责声明
+
+本系统仅供学习研究和辅助参考使用，**不替代专业医疗诊断**。所有AI推荐的处方必须经执业中医师审核后方可使用。
