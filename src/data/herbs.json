@@ -1,0 +1,2836 @@
+[
+    {
+        "id": "H001",
+        "name": "人参",
+        "pinyin": "Renshen",
+        "category": "补气药",
+        "nature": "微温",
+        "flavor": "甘、微苦",
+        "meridians": [
+            "脾",
+            "肺",
+            "心"
+        ],
+        "effects": [
+            "大补元气",
+            "复脉固脱",
+            "补脾益肺",
+            "生津安神"
+        ],
+        "contraindications": [
+            "实热证",
+            "正气不虚者慎用"
+        ],
+        "dosage": "3-9g",
+        "alias": [
+            "棒槌",
+            "山参"
+        ]
+    },
+    {
+        "id": "H002",
+        "name": "黄芪",
+        "pinyin": "Huangqi",
+        "category": "补气药",
+        "nature": "微温",
+        "flavor": "甘",
+        "meridians": [
+            "脾",
+            "肺"
+        ],
+        "effects": [
+            "补气升阳",
+            "固表止汗",
+            "利水消肿",
+            "生津养血",
+            "托毒排脓"
+        ],
+        "contraindications": [
+            "表实邪盛",
+            "气滞湿阻",
+            "食积内停"
+        ],
+        "dosage": "9-30g",
+        "alias": [
+            "北芪"
+        ]
+    },
+    {
+        "id": "H003",
+        "name": "白术",
+        "pinyin": "Baizhu",
+        "category": "补气药",
+        "nature": "温",
+        "flavor": "苦、甘",
+        "meridians": [
+            "脾",
+            "胃"
+        ],
+        "effects": [
+            "健脾益气",
+            "燥湿利水",
+            "止汗",
+            "安胎"
+        ],
+        "contraindications": [
+            "阴虚燥渴",
+            "气滞胀闷"
+        ],
+        "dosage": "6-12g",
+        "alias": [
+            "于术"
+        ]
+    },
+    {
+        "id": "H004",
+        "name": "甘草",
+        "pinyin": "Gancao",
+        "category": "补气药",
+        "nature": "平",
+        "flavor": "甘",
+        "meridians": [
+            "心",
+            "肺",
+            "脾",
+            "胃"
+        ],
+        "effects": [
+            "补脾益气",
+            "清热解毒",
+            "祛痰止咳",
+            "缓急止痛",
+            "调和诸药"
+        ],
+        "contraindications": [
+            "湿盛胀满者慎用",
+            "不宜与海藻、大戟、甘遂、芫花同用"
+        ],
+        "dosage": "2-10g",
+        "alias": [
+            "国老"
+        ]
+    },
+    {
+        "id": "H005",
+        "name": "党参",
+        "pinyin": "Dangshen",
+        "category": "补气药",
+        "nature": "平",
+        "flavor": "甘",
+        "meridians": [
+            "脾",
+            "肺"
+        ],
+        "effects": [
+            "补中益气",
+            "健脾益肺",
+            "养血生津"
+        ],
+        "contraindications": [
+            "气滞、肝火盛者慎用"
+        ],
+        "dosage": "9-30g",
+        "alias": []
+    },
+    {
+        "id": "H006",
+        "name": "山药",
+        "pinyin": "Shanyao",
+        "category": "补气药",
+        "nature": "平",
+        "flavor": "甘",
+        "meridians": [
+            "脾",
+            "肺",
+            "肾"
+        ],
+        "effects": [
+            "补脾养胃",
+            "生津益肺",
+            "补肾涩精"
+        ],
+        "contraindications": [
+            "湿盛中满者慎用"
+        ],
+        "dosage": "15-30g",
+        "alias": [
+            "薯蓣"
+        ]
+    },
+    {
+        "id": "H007",
+        "name": "大枣",
+        "pinyin": "Dazao",
+        "category": "补气药",
+        "nature": "温",
+        "flavor": "甘",
+        "meridians": [
+            "脾",
+            "胃",
+            "心"
+        ],
+        "effects": [
+            "补中益气",
+            "养血安神",
+            "缓和药性"
+        ],
+        "contraindications": [
+            "湿痰、积滞、虫积者慎用"
+        ],
+        "dosage": "6-15g",
+        "alias": [
+            "红枣"
+        ]
+    },
+    {
+        "id": "H008",
+        "name": "当归",
+        "pinyin": "Danggui",
+        "category": "补血药",
+        "nature": "温",
+        "flavor": "甘、辛",
+        "meridians": [
+            "肝",
+            "心",
+            "脾"
+        ],
+        "effects": [
+            "补血活血",
+            "调经止痛",
+            "润肠通便"
+        ],
+        "contraindications": [
+            "湿盛中满、大便溏泄者慎用"
+        ],
+        "dosage": "6-12g",
+        "alias": []
+    },
+    {
+        "id": "H009",
+        "name": "熟地黄",
+        "pinyin": "Shudihuang",
+        "category": "补血药",
+        "nature": "微温",
+        "flavor": "甘",
+        "meridians": [
+            "肝",
+            "肾"
+        ],
+        "effects": [
+            "补血滋阴",
+            "益精填髓"
+        ],
+        "contraindications": [
+            "脾虚痰多、气滞者慎用"
+        ],
+        "dosage": "9-15g",
+        "alias": [
+            "熟地"
+        ]
+    },
+    {
+        "id": "H010",
+        "name": "白芍",
+        "pinyin": "Baishao",
+        "category": "补血药",
+        "nature": "微寒",
+        "flavor": "苦、酸",
+        "meridians": [
+            "肝",
+            "脾"
+        ],
+        "effects": [
+            "养血调经",
+            "敛阴止汗",
+            "柔肝止痛",
+            "平抑肝阳"
+        ],
+        "contraindications": [
+            "阳虚者慎用",
+            "不宜与藜芦同用"
+        ],
+        "dosage": "6-15g",
+        "alias": [
+            "芍药"
+        ]
+    },
+    {
+        "id": "H011",
+        "name": "阿胶",
+        "pinyin": "Ejiao",
+        "category": "补血药",
+        "nature": "平",
+        "flavor": "甘",
+        "meridians": [
+            "肺",
+            "肝",
+            "肾"
+        ],
+        "effects": [
+            "补血滋阴",
+            "润燥止血"
+        ],
+        "contraindications": [
+            "脾胃虚弱者慎用"
+        ],
+        "dosage": "3-9g",
+        "alias": [
+            "驴皮胶"
+        ]
+    },
+    {
+        "id": "H012",
+        "name": "何首乌",
+        "pinyin": "Heshouwu",
+        "category": "补血药",
+        "nature": "微温",
+        "flavor": "苦、甘、涩",
+        "meridians": [
+            "肝",
+            "心",
+            "肾"
+        ],
+        "effects": [
+            "补肝肾",
+            "益精血",
+            "乌须发",
+            "强筋骨",
+            "解毒",
+            "截疟",
+            "润肠通便"
+        ],
+        "contraindications": [
+            "大便溏泄、湿痰较重者慎用"
+        ],
+        "dosage": "6-12g",
+        "alias": [
+            "首乌"
+        ]
+    },
+    {
+        "id": "H013",
+        "name": "麦冬",
+        "pinyin": "Maidong",
+        "category": "补阴药",
+        "nature": "微寒",
+        "flavor": "甘、微苦",
+        "meridians": [
+            "心",
+            "肺",
+            "胃"
+        ],
+        "effects": [
+            "养阴生津",
+            "润肺清心"
+        ],
+        "contraindications": [
+            "脾虚泄泻、痰湿内盛者慎用"
+        ],
+        "dosage": "6-12g",
+        "alias": []
+    },
+    {
+        "id": "H014",
+        "name": "枸杞子",
+        "pinyin": "Gouqizi",
+        "category": "补阴药",
+        "nature": "平",
+        "flavor": "甘",
+        "meridians": [
+            "肝",
+            "肾"
+        ],
+        "effects": [
+            "滋补肝肾",
+            "益精明目"
+        ],
+        "contraindications": [
+            "外邪实热者慎用"
+        ],
+        "dosage": "6-12g",
+        "alias": [
+            "枸杞"
+        ]
+    },
+    {
+        "id": "H015",
+        "name": "黄精",
+        "pinyin": "Huangjing",
+        "category": "补阴药",
+        "nature": "平",
+        "flavor": "甘",
+        "meridians": [
+            "脾",
+            "肺",
+            "肾"
+        ],
+        "effects": [
+            "补气养阴",
+            "健脾润肺",
+            "益肾"
+        ],
+        "contraindications": [
+            "脾虚有湿、咳嗽痰多者慎用"
+        ],
+        "dosage": "9-15g",
+        "alias": []
+    },
+    {
+        "id": "H016",
+        "name": "鹿茸",
+        "pinyin": "Lurong",
+        "category": "补阳药",
+        "nature": "温",
+        "flavor": "甘、咸",
+        "meridians": [
+            "肾",
+            "肝"
+        ],
+        "effects": [
+            "壮肾阳",
+            "益精血",
+            "强筋骨",
+            "调冲任",
+            "托疮毒"
+        ],
+        "contraindications": [
+            "阴虚阳亢者忌用"
+        ],
+        "dosage": "1-2g",
+        "alias": []
+    },
+    {
+        "id": "H017",
+        "name": "肉桂",
+        "pinyin": "Rougui",
+        "category": "补阳药",
+        "nature": "大热",
+        "flavor": "辛、甘",
+        "meridians": [
+            "肾",
+            "脾",
+            "心",
+            "肝"
+        ],
+        "effects": [
+            "补火助阳",
+            "引火归元",
+            "散寒止痛",
+            "温经通脉"
+        ],
+        "contraindications": [
+            "阴虚火旺者忌用",
+            "孕妇慎用"
+        ],
+        "dosage": "1-5g",
+        "alias": [
+            "桂皮"
+        ]
+    },
+    {
+        "id": "H018",
+        "name": "附子",
+        "pinyin": "Fuzi",
+        "category": "温里药",
+        "nature": "大热",
+        "flavor": "辛、甘",
+        "meridians": [
+            "心",
+            "肾",
+            "脾"
+        ],
+        "effects": [
+            "回阳救逆",
+            "补火助阳",
+            "散寒止痛"
+        ],
+        "contraindications": [
+            "阴虚阳亢者忌用",
+            "孕妇忌用",
+            "不宜与半夏、瓜蒌、贝母、白蔹、白及同用"
+        ],
+        "dosage": "3-15g(先煎)",
+        "alias": [
+            "乌头"
+        ]
+    },
+    {
+        "id": "H019",
+        "name": "干姜",
+        "pinyin": "Ganjiang",
+        "category": "温里药",
+        "nature": "热",
+        "flavor": "辛",
+        "meridians": [
+            "脾",
+            "胃",
+            "肾",
+            "心",
+            "肺"
+        ],
+        "effects": [
+            "温中散寒",
+            "回阳通脉",
+            "温肺化饮"
+        ],
+        "contraindications": [
+            "阴虚内热者忌用",
+            "孕妇慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": []
+    },
+    {
+        "id": "H020",
+        "name": "桂枝",
+        "pinyin": "Guizhi",
+        "category": "解表药",
+        "nature": "温",
+        "flavor": "辛、甘",
+        "meridians": [
+            "心",
+            "肺",
+            "膀胱"
+        ],
+        "effects": [
+            "发汗解肌",
+            "温通经脉",
+            "助阳化气",
+            "平冲降逆"
+        ],
+        "contraindications": [
+            "温热病及阴虚阳盛者忌用",
+            "孕妇慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": []
+    },
+    {
+        "id": "H021",
+        "name": "麻黄",
+        "pinyin": "Mahuang",
+        "category": "解表药",
+        "nature": "温",
+        "flavor": "辛、微苦",
+        "meridians": [
+            "肺",
+            "膀胱"
+        ],
+        "effects": [
+            "发汗解表",
+            "宣肺平喘",
+            "利水消肿"
+        ],
+        "contraindications": [
+            "表虚自汗、阴虚盗汗者忌用"
+        ],
+        "dosage": "2-10g",
+        "alias": []
+    },
+    {
+        "id": "H022",
+        "name": "紫苏叶",
+        "pinyin": "Zisuye",
+        "category": "解表药",
+        "nature": "温",
+        "flavor": "辛",
+        "meridians": [
+            "肺",
+            "脾"
+        ],
+        "effects": [
+            "解表散寒",
+            "行气和胃"
+        ],
+        "contraindications": [
+            "气虚表虚者慎用"
+        ],
+        "dosage": "5-10g",
+        "alias": [
+            "苏叶"
+        ]
+    },
+    {
+        "id": "H023",
+        "name": "防风",
+        "pinyin": "Fangfeng",
+        "category": "解表药",
+        "nature": "微温",
+        "flavor": "辛、甘",
+        "meridians": [
+            "膀胱",
+            "肝",
+            "脾"
+        ],
+        "effects": [
+            "祛风解表",
+            "胜湿止痛",
+            "止痉"
+        ],
+        "contraindications": [
+            "阴虚火旺者慎用"
+        ],
+        "dosage": "5-10g",
+        "alias": []
+    },
+    {
+        "id": "H024",
+        "name": "荆芥",
+        "pinyin": "Jingjie",
+        "category": "解表药",
+        "nature": "微温",
+        "flavor": "辛",
+        "meridians": [
+            "肺",
+            "肝"
+        ],
+        "effects": [
+            "祛风解表",
+            "透疹消疮",
+            "止血"
+        ],
+        "contraindications": [
+            "表虚自汗者慎用"
+        ],
+        "dosage": "5-10g",
+        "alias": []
+    },
+    {
+        "id": "H025",
+        "name": "生姜",
+        "pinyin": "Shengjiang",
+        "category": "解表药",
+        "nature": "微温",
+        "flavor": "辛",
+        "meridians": [
+            "肺",
+            "脾",
+            "胃"
+        ],
+        "effects": [
+            "解表散寒",
+            "温中止呕",
+            "化痰止咳"
+        ],
+        "contraindications": [
+            "阴虚内热者慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": []
+    },
+    {
+        "id": "H026",
+        "name": "薄荷",
+        "pinyin": "Bohe",
+        "category": "解表药",
+        "nature": "凉",
+        "flavor": "辛",
+        "meridians": [
+            "肺",
+            "肝"
+        ],
+        "effects": [
+            "疏散风热",
+            "清利头目",
+            "利咽透疹",
+            "疏肝行气"
+        ],
+        "contraindications": [
+            "体虚多汗者慎用"
+        ],
+        "dosage": "3-6g(后下)",
+        "alias": []
+    },
+    {
+        "id": "H027",
+        "name": "菊花",
+        "pinyin": "Juhua",
+        "category": "解表药",
+        "nature": "微寒",
+        "flavor": "辛、甘、苦",
+        "meridians": [
+            "肺",
+            "肝"
+        ],
+        "effects": [
+            "疏风清热",
+            "平肝明目",
+            "清热解毒"
+        ],
+        "contraindications": [
+            "气虚胃寒者慎用"
+        ],
+        "dosage": "5-10g",
+        "alias": []
+    },
+    {
+        "id": "H028",
+        "name": "柴胡",
+        "pinyin": "Chaihu",
+        "category": "解表药",
+        "nature": "微寒",
+        "flavor": "辛、苦",
+        "meridians": [
+            "肝",
+            "胆",
+            "肺"
+        ],
+        "effects": [
+            "和解表里",
+            "疏肝升阳",
+            "退热截疟"
+        ],
+        "contraindications": [
+            "肝阳上亢、阴虚火旺者忌用"
+        ],
+        "dosage": "3-10g",
+        "alias": []
+    },
+    {
+        "id": "H029",
+        "name": "葛根",
+        "pinyin": "Gegen",
+        "category": "解表药",
+        "nature": "凉",
+        "flavor": "甘、辛",
+        "meridians": [
+            "脾",
+            "胃",
+            "肺"
+        ],
+        "effects": [
+            "解肌退热",
+            "透疹",
+            "生津止渴",
+            "升阳止泻"
+        ],
+        "contraindications": [
+            "表虚多汗者慎用"
+        ],
+        "dosage": "10-15g",
+        "alias": []
+    },
+    {
+        "id": "H030",
+        "name": "石膏",
+        "pinyin": "Shigao",
+        "category": "清热药",
+        "nature": "大寒",
+        "flavor": "辛、甘",
+        "meridians": [
+            "肺",
+            "胃"
+        ],
+        "effects": [
+            "清热泻火",
+            "除烦止渴"
+        ],
+        "contraindications": [
+            "脾胃虚寒者忌用"
+        ],
+        "dosage": "15-60g(先煎)",
+        "alias": []
+    },
+    {
+        "id": "H031",
+        "name": "知母",
+        "pinyin": "Zhimu",
+        "category": "清热药",
+        "nature": "寒",
+        "flavor": "苦、甘",
+        "meridians": [
+            "肺",
+            "胃",
+            "肾"
+        ],
+        "effects": [
+            "清热泻火",
+            "滋阴润燥"
+        ],
+        "contraindications": [
+            "脾胃虚寒、大便溏泄者忌用"
+        ],
+        "dosage": "6-12g",
+        "alias": []
+    },
+    {
+        "id": "H032",
+        "name": "黄芩",
+        "pinyin": "Huangqin",
+        "category": "清热药",
+        "nature": "寒",
+        "flavor": "苦",
+        "meridians": [
+            "肺",
+            "胆",
+            "脾",
+            "大肠",
+            "小肠"
+        ],
+        "effects": [
+            "清热燥湿",
+            "泻火解毒",
+            "止血安胎"
+        ],
+        "contraindications": [
+            "脾胃虚寒者慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": []
+    },
+    {
+        "id": "H033",
+        "name": "黄连",
+        "pinyin": "Huanglian",
+        "category": "清热药",
+        "nature": "寒",
+        "flavor": "苦",
+        "meridians": [
+            "心",
+            "脾",
+            "胃",
+            "肝",
+            "胆",
+            "大肠"
+        ],
+        "effects": [
+            "清热燥湿",
+            "泻火解毒"
+        ],
+        "contraindications": [
+            "脾胃虚寒者忌用",
+            "不宜久服"
+        ],
+        "dosage": "2-5g",
+        "alias": [
+            "川连"
+        ]
+    },
+    {
+        "id": "H034",
+        "name": "黄柏",
+        "pinyin": "Huangbai",
+        "category": "清热药",
+        "nature": "寒",
+        "flavor": "苦",
+        "meridians": [
+            "肾",
+            "膀胱"
+        ],
+        "effects": [
+            "清热燥湿",
+            "泻火除蒸",
+            "解毒疗疮"
+        ],
+        "contraindications": [
+            "脾虚泄泻者慎用"
+        ],
+        "dosage": "3-12g",
+        "alias": []
+    },
+    {
+        "id": "H035",
+        "name": "栀子",
+        "pinyin": "Zhizi",
+        "category": "清热药",
+        "nature": "寒",
+        "flavor": "苦",
+        "meridians": [
+            "心",
+            "肺",
+            "三焦"
+        ],
+        "effects": [
+            "泻火除烦",
+            "清热利湿",
+            "凉血解毒"
+        ],
+        "contraindications": [
+            "脾虚便溏者慎用"
+        ],
+        "dosage": "6-10g",
+        "alias": [
+            "山栀"
+        ]
+    },
+    {
+        "id": "H036",
+        "name": "金银花",
+        "pinyin": "Jinyinhua",
+        "category": "清热药",
+        "nature": "寒",
+        "flavor": "甘",
+        "meridians": [
+            "肺",
+            "心",
+            "胃"
+        ],
+        "effects": [
+            "清热解毒",
+            "疏散风热"
+        ],
+        "contraindications": [
+            "脾胃虚寒者慎用"
+        ],
+        "dosage": "6-15g",
+        "alias": [
+            "忍冬花"
+        ]
+    },
+    {
+        "id": "H037",
+        "name": "连翘",
+        "pinyin": "Lianqiao",
+        "category": "清热药",
+        "nature": "微寒",
+        "flavor": "苦",
+        "meridians": [
+            "肺",
+            "心",
+            "小肠"
+        ],
+        "effects": [
+            "清热解毒",
+            "消肿散结",
+            "疏散风热"
+        ],
+        "contraindications": [
+            "脾胃虚弱者慎用"
+        ],
+        "dosage": "6-15g",
+        "alias": []
+    },
+    {
+        "id": "H038",
+        "name": "大黄",
+        "pinyin": "Dahuang",
+        "category": "泻下药",
+        "nature": "寒",
+        "flavor": "苦",
+        "meridians": [
+            "脾",
+            "胃",
+            "大肠",
+            "肝",
+            "心包"
+        ],
+        "effects": [
+            "泻下攻积",
+            "清热泻火",
+            "凉血解毒",
+            "逐瘀通经"
+        ],
+        "contraindications": [
+            "脾胃虚弱者慎用",
+            "孕妇忌用"
+        ],
+        "dosage": "3-15g",
+        "alias": [
+            "将军"
+        ]
+    },
+    {
+        "id": "H039",
+        "name": "芒硝",
+        "pinyin": "Mangxiao",
+        "category": "泻下药",
+        "nature": "寒",
+        "flavor": "咸、苦",
+        "meridians": [
+            "胃",
+            "大肠"
+        ],
+        "effects": [
+            "泻下通便",
+            "润燥软坚",
+            "清火消肿"
+        ],
+        "contraindications": [
+            "孕妇忌用",
+            "脾胃虚弱者慎用"
+        ],
+        "dosage": "6-12g(冲服)",
+        "alias": [
+            "朴硝"
+        ]
+    },
+    {
+        "id": "H040",
+        "name": "半夏",
+        "pinyin": "Banxia",
+        "category": "化痰药",
+        "nature": "温",
+        "flavor": "辛",
+        "meridians": [
+            "脾",
+            "胃",
+            "肺"
+        ],
+        "effects": [
+            "燥湿化痰",
+            "降逆止呕",
+            "消痞散结"
+        ],
+        "contraindications": [
+            "阴虚燥咳者忌用",
+            "不宜与乌头同用",
+            "孕妇慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": []
+    },
+    {
+        "id": "H041",
+        "name": "陈皮",
+        "pinyin": "Chenpi",
+        "category": "理气药",
+        "nature": "温",
+        "flavor": "辛、苦",
+        "meridians": [
+            "脾",
+            "肺"
+        ],
+        "effects": [
+            "理气健脾",
+            "燥湿化痰"
+        ],
+        "contraindications": [
+            "气虚证、阴虚燥咳者慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": [
+            "橘皮"
+        ]
+    },
+    {
+        "id": "H042",
+        "name": "茯苓",
+        "pinyin": "Fuling",
+        "category": "利水渗湿药",
+        "nature": "平",
+        "flavor": "甘、淡",
+        "meridians": [
+            "心",
+            "肺",
+            "脾",
+            "肾"
+        ],
+        "effects": [
+            "利水渗湿",
+            "健脾",
+            "宁心"
+        ],
+        "contraindications": [
+            "虚寒滑精者慎用"
+        ],
+        "dosage": "10-15g",
+        "alias": [
+            "云苓"
+        ]
+    },
+    {
+        "id": "H043",
+        "name": "泽泻",
+        "pinyin": "Zexie",
+        "category": "利水渗湿药",
+        "nature": "寒",
+        "flavor": "甘、淡",
+        "meridians": [
+            "肾",
+            "膀胱"
+        ],
+        "effects": [
+            "利水渗湿",
+            "泄热"
+        ],
+        "contraindications": [
+            "肾虚精滑者慎用"
+        ],
+        "dosage": "6-10g",
+        "alias": []
+    },
+    {
+        "id": "H044",
+        "name": "薏苡仁",
+        "pinyin": "Yiyiren",
+        "category": "利水渗湿药",
+        "nature": "凉",
+        "flavor": "甘、淡",
+        "meridians": [
+            "脾",
+            "胃",
+            "肺"
+        ],
+        "effects": [
+            "利水渗湿",
+            "健脾止泻",
+            "除痹",
+            "清热排脓"
+        ],
+        "contraindications": [
+            "孕妇慎用"
+        ],
+        "dosage": "9-30g",
+        "alias": [
+            "薏米"
+        ]
+    },
+    {
+        "id": "H045",
+        "name": "川芎",
+        "pinyin": "Chuanxiong",
+        "category": "活血化瘀药",
+        "nature": "温",
+        "flavor": "辛",
+        "meridians": [
+            "肝",
+            "胆",
+            "心包"
+        ],
+        "effects": [
+            "活血行气",
+            "祛风止痛"
+        ],
+        "contraindications": [
+            "阴虚火旺者慎用",
+            "孕妇慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": []
+    },
+    {
+        "id": "H046",
+        "name": "丹参",
+        "pinyin": "Danshen",
+        "category": "活血化瘀药",
+        "nature": "微寒",
+        "flavor": "苦",
+        "meridians": [
+            "心",
+            "肝"
+        ],
+        "effects": [
+            "活血祛瘀",
+            "通经止痛",
+            "清心除烦",
+            "凉血消痈"
+        ],
+        "contraindications": [
+            "无瘀血者慎用",
+            "孕妇慎用"
+        ],
+        "dosage": "10-15g",
+        "alias": []
+    },
+    {
+        "id": "H047",
+        "name": "桃仁",
+        "pinyin": "Taoren",
+        "category": "活血化瘀药",
+        "nature": "平",
+        "flavor": "苦、甘",
+        "meridians": [
+            "心",
+            "肝",
+            "大肠"
+        ],
+        "effects": [
+            "活血祛瘀",
+            "润肠通便",
+            "止咳平喘"
+        ],
+        "contraindications": [
+            "孕妇忌用",
+            "血虚者慎用"
+        ],
+        "dosage": "5-10g",
+        "alias": []
+    },
+    {
+        "id": "H048",
+        "name": "红花",
+        "pinyin": "Honghua",
+        "category": "活血化瘀药",
+        "nature": "温",
+        "flavor": "辛",
+        "meridians": [
+            "心",
+            "肝"
+        ],
+        "effects": [
+            "活血通经",
+            "散瘀止痛"
+        ],
+        "contraindications": [
+            "孕妇忌用",
+            "月经过多者慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": [
+            "藏红花"
+        ]
+    },
+    {
+        "id": "H049",
+        "name": "三七",
+        "pinyin": "Sanqi",
+        "category": "止血药",
+        "nature": "温",
+        "flavor": "甘、微苦",
+        "meridians": [
+            "肝",
+            "胃"
+        ],
+        "effects": [
+            "散瘀止血",
+            "消肿定痛"
+        ],
+        "contraindications": [
+            "孕妇慎用"
+        ],
+        "dosage": "3-9g",
+        "alias": [
+            "田七"
+        ]
+    },
+    {
+        "id": "H050",
+        "name": "艾叶",
+        "pinyin": "Aiye",
+        "category": "止血药",
+        "nature": "温",
+        "flavor": "辛、苦",
+        "meridians": [
+            "脾",
+            "肝",
+            "肾"
+        ],
+        "effects": [
+            "散寒止痛",
+            "温经止血",
+            "除湿止痒"
+        ],
+        "contraindications": [
+            "阴虚血热者慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": []
+    },
+    {
+        "id": "H051",
+        "name": "酸枣仁",
+        "pinyin": "Suanzaoren",
+        "category": "安神药",
+        "nature": "平",
+        "flavor": "甘、酸",
+        "meridians": [
+            "心",
+            "肝",
+            "胆"
+        ],
+        "effects": [
+            "养心补肝",
+            "宁心安神",
+            "敛汗生津"
+        ],
+        "contraindications": [
+            "有实邪郁火者慎用"
+        ],
+        "dosage": "10-15g",
+        "alias": [
+            "枣仁"
+        ]
+    },
+    {
+        "id": "H052",
+        "name": "远志",
+        "pinyin": "Yuanzhi",
+        "category": "安神药",
+        "nature": "温",
+        "flavor": "辛、苦",
+        "meridians": [
+            "心",
+            "肾",
+            "肺"
+        ],
+        "effects": [
+            "安神益智",
+            "祛痰",
+            "消肿"
+        ],
+        "contraindications": [
+            "有实火者慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": []
+    },
+    {
+        "id": "H053",
+        "name": "龙骨",
+        "pinyin": "Longgu",
+        "category": "安神药",
+        "nature": "平",
+        "flavor": "甘、涩",
+        "meridians": [
+            "心",
+            "肝",
+            "肾"
+        ],
+        "effects": [
+            "镇惊安神",
+            "平肝潜阳",
+            "收敛固涩"
+        ],
+        "contraindications": [
+            "湿热积滞者慎用"
+        ],
+        "dosage": "15-30g(先煎)",
+        "alias": []
+    },
+    {
+        "id": "H054",
+        "name": "牡蛎",
+        "pinyin": "Muli",
+        "category": "安神药",
+        "nature": "微寒",
+        "flavor": "咸、涩",
+        "meridians": [
+            "肝",
+            "胆",
+            "肾"
+        ],
+        "effects": [
+            "重镇安神",
+            "平肝潜阳",
+            "软坚散结",
+            "收敛固涩"
+        ],
+        "contraindications": [
+            "虚而有寒者慎用"
+        ],
+        "dosage": "9-30g(先煎)",
+        "alias": []
+    },
+    {
+        "id": "H055",
+        "name": "天麻",
+        "pinyin": "Tianma",
+        "category": "平肝息风药",
+        "nature": "平",
+        "flavor": "甘",
+        "meridians": [
+            "肝"
+        ],
+        "effects": [
+            "息风止痉",
+            "平抑肝阳",
+            "祛风通络"
+        ],
+        "contraindications": [
+            "气血虚甚者慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": [
+            "赤箭"
+        ]
+    },
+    {
+        "id": "H056",
+        "name": "钩藤",
+        "pinyin": "Gouteng",
+        "category": "平肝息风药",
+        "nature": "凉",
+        "flavor": "甘",
+        "meridians": [
+            "肝",
+            "心包"
+        ],
+        "effects": [
+            "息风定惊",
+            "清热平肝"
+        ],
+        "contraindications": [
+            "无风热者慎用"
+        ],
+        "dosage": "3-12g(后下)",
+        "alias": []
+    },
+    {
+        "id": "H057",
+        "name": "杜仲",
+        "pinyin": "Duzhong",
+        "category": "补阳药",
+        "nature": "温",
+        "flavor": "甘",
+        "meridians": [
+            "肝",
+            "肾"
+        ],
+        "effects": [
+            "补肝肾",
+            "强筋骨",
+            "安胎"
+        ],
+        "contraindications": [
+            "阴虚火旺者慎用"
+        ],
+        "dosage": "6-10g",
+        "alias": []
+    },
+    {
+        "id": "H058",
+        "name": "续断",
+        "pinyin": "Xuduan",
+        "category": "补阳药",
+        "nature": "微温",
+        "flavor": "苦、辛",
+        "meridians": [
+            "肝",
+            "肾"
+        ],
+        "effects": [
+            "补肝肾",
+            "强筋骨",
+            "续折伤",
+            "止崩漏"
+        ],
+        "contraindications": [
+            "初期外感者慎用"
+        ],
+        "dosage": "9-15g",
+        "alias": []
+    },
+    {
+        "id": "H059",
+        "name": "砂仁",
+        "pinyin": "Sharen",
+        "category": "化湿药",
+        "nature": "温",
+        "flavor": "辛",
+        "meridians": [
+            "脾",
+            "胃",
+            "肾"
+        ],
+        "effects": [
+            "化湿开胃",
+            "温脾止泻",
+            "理气安胎"
+        ],
+        "contraindications": [
+            "阴虚有热者慎用"
+        ],
+        "dosage": "3-6g(后下)",
+        "alias": []
+    },
+    {
+        "id": "H060",
+        "name": "苍术",
+        "pinyin": "Cangzhu",
+        "category": "化湿药",
+        "nature": "温",
+        "flavor": "辛、苦",
+        "meridians": [
+            "脾",
+            "胃",
+            "肝"
+        ],
+        "effects": [
+            "燥湿健脾",
+            "祛风散寒",
+            "明目"
+        ],
+        "contraindications": [
+            "阴虚内热者慎用"
+        ],
+        "dosage": "5-10g",
+        "alias": []
+    },
+    {
+        "id": "H061",
+        "name": "厚朴",
+        "pinyin": "Houpo",
+        "category": "化湿药",
+        "nature": "温",
+        "flavor": "苦、辛",
+        "meridians": [
+            "脾",
+            "胃",
+            "肺",
+            "大肠"
+        ],
+        "effects": [
+            "燥湿消痰",
+            "下气除满"
+        ],
+        "contraindications": [
+            "气虚津亏者慎用",
+            "孕妇慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": []
+    },
+    {
+        "id": "H062",
+        "name": "藿香",
+        "pinyin": "Huoxiang",
+        "category": "化湿药",
+        "nature": "微温",
+        "flavor": "辛",
+        "meridians": [
+            "脾",
+            "胃",
+            "肺"
+        ],
+        "effects": [
+            "芳香化浊",
+            "和中止呕",
+            "发表解暑"
+        ],
+        "contraindications": [
+            "阴虚火旺者慎用"
+        ],
+        "dosage": "5-10g",
+        "alias": []
+    },
+    {
+        "id": "H063",
+        "name": "木香",
+        "pinyin": "Muxiang",
+        "category": "理气药",
+        "nature": "温",
+        "flavor": "辛、苦",
+        "meridians": [
+            "脾",
+            "胃",
+            "大肠",
+            "三焦",
+            "胆"
+        ],
+        "effects": [
+            "行气止痛",
+            "健脾消食"
+        ],
+        "contraindications": [
+            "阴虚津液不足者慎用"
+        ],
+        "dosage": "3-6g",
+        "alias": [
+            "广木香"
+        ]
+    },
+    {
+        "id": "H064",
+        "name": "香附",
+        "pinyin": "Xiangfu",
+        "category": "理气药",
+        "nature": "平",
+        "flavor": "辛、微苦、微甘",
+        "meridians": [
+            "肝",
+            "脾",
+            "三焦"
+        ],
+        "effects": [
+            "疏肝解郁",
+            "理气宽中",
+            "调经止痛"
+        ],
+        "contraindications": [
+            "气虚无滞者慎用"
+        ],
+        "dosage": "6-10g",
+        "alias": []
+    },
+    {
+        "id": "H065",
+        "name": "枳实",
+        "pinyin": "Zhishi",
+        "category": "理气药",
+        "nature": "微寒",
+        "flavor": "苦、辛、酸",
+        "meridians": [
+            "脾",
+            "胃",
+            "大肠"
+        ],
+        "effects": [
+            "破气消积",
+            "化痰散痞"
+        ],
+        "contraindications": [
+            "孕妇慎用",
+            "脾胃虚弱者慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": []
+    },
+    {
+        "id": "H066",
+        "name": "龙胆草",
+        "pinyin": "Longdancao",
+        "category": "清热药",
+        "nature": "寒",
+        "flavor": "苦",
+        "meridians": [
+            "肝",
+            "胆"
+        ],
+        "effects": [
+            "清热燥湿",
+            "泻肝胆火"
+        ],
+        "contraindications": [
+            "脾胃虚寒者忌用"
+        ],
+        "dosage": "3-6g",
+        "alias": [
+            "龙胆"
+        ]
+    },
+    {
+        "id": "H067",
+        "name": "牡丹皮",
+        "pinyin": "Mudanpi",
+        "category": "清热药",
+        "nature": "微寒",
+        "flavor": "苦、辛",
+        "meridians": [
+            "心",
+            "肝",
+            "肾"
+        ],
+        "effects": [
+            "清热凉血",
+            "活血化瘀",
+            "退虚热"
+        ],
+        "contraindications": [
+            "孕妇慎用",
+            "月经过多者慎用"
+        ],
+        "dosage": "6-12g",
+        "alias": [
+            "丹皮"
+        ]
+    },
+    {
+        "id": "H068",
+        "name": "生地黄",
+        "pinyin": "Shengdihuang",
+        "category": "清热药",
+        "nature": "寒",
+        "flavor": "甘、苦",
+        "meridians": [
+            "心",
+            "肝",
+            "肾"
+        ],
+        "effects": [
+            "清热凉血",
+            "养阴生津"
+        ],
+        "contraindications": [
+            "脾虚泄泻者慎用"
+        ],
+        "dosage": "10-15g",
+        "alias": [
+            "生地"
+        ]
+    },
+    {
+        "id": "H069",
+        "name": "玄参",
+        "pinyin": "Xuanshen",
+        "category": "清热药",
+        "nature": "微寒",
+        "flavor": "甘、苦、咸",
+        "meridians": [
+            "肺",
+            "胃",
+            "肾"
+        ],
+        "effects": [
+            "凉血滋阴",
+            "泻火解毒"
+        ],
+        "contraindications": [
+            "脾胃虚寒者慎用",
+            "不宜与藜芦同用"
+        ],
+        "dosage": "10-15g",
+        "alias": [
+            "元参"
+        ]
+    },
+    {
+        "id": "H070",
+        "name": "夏枯草",
+        "pinyin": "Xiakucao",
+        "category": "清热药",
+        "nature": "寒",
+        "flavor": "辛、苦",
+        "meridians": [
+            "肝",
+            "胆"
+        ],
+        "effects": [
+            "清热泻火",
+            "明目",
+            "散结消肿"
+        ],
+        "contraindications": [
+            "脾胃虚弱者慎用"
+        ],
+        "dosage": "9-15g",
+        "alias": []
+    },
+    {
+        "id": "H071",
+        "name": "板蓝根",
+        "pinyin": "Banlangen",
+        "category": "清热药",
+        "nature": "寒",
+        "flavor": "苦",
+        "meridians": [
+            "心",
+            "胃"
+        ],
+        "effects": [
+            "清热解毒",
+            "凉血利咽"
+        ],
+        "contraindications": [
+            "脾胃虚寒者慎用"
+        ],
+        "dosage": "9-15g",
+        "alias": []
+    },
+    {
+        "id": "H072",
+        "name": "蒲公英",
+        "pinyin": "Pugongying",
+        "category": "清热药",
+        "nature": "寒",
+        "flavor": "苦、甘",
+        "meridians": [
+            "肝",
+            "胃"
+        ],
+        "effects": [
+            "清热解毒",
+            "消肿散结",
+            "利尿通淋"
+        ],
+        "contraindications": [
+            "阳虚外寒者慎用"
+        ],
+        "dosage": "10-15g",
+        "alias": []
+    },
+    {
+        "id": "H073",
+        "name": "白花蛇舌草",
+        "pinyin": "Baihuasheshecao",
+        "category": "清热药",
+        "nature": "寒",
+        "flavor": "苦、甘",
+        "meridians": [
+            "胃",
+            "大肠",
+            "小肠"
+        ],
+        "effects": [
+            "清热解毒",
+            "利湿通淋"
+        ],
+        "contraindications": [
+            "脾胃虚寒者慎用"
+        ],
+        "dosage": "15-60g",
+        "alias": []
+    },
+    {
+        "id": "H074",
+        "name": "车前子",
+        "pinyin": "Cheqianzi",
+        "category": "利水渗湿药",
+        "nature": "寒",
+        "flavor": "甘",
+        "meridians": [
+            "肝",
+            "肾",
+            "肺",
+            "小肠"
+        ],
+        "effects": [
+            "清热利尿通淋",
+            "渗湿止泻",
+            "明目",
+            "祛痰"
+        ],
+        "contraindications": [
+            "肾虚精滑者慎用"
+        ],
+        "dosage": "9-15g(包煎)",
+        "alias": []
+    },
+    {
+        "id": "H075",
+        "name": "木通",
+        "pinyin": "Mutong",
+        "category": "利水渗湿药",
+        "nature": "寒",
+        "flavor": "苦",
+        "meridians": [
+            "心",
+            "小肠",
+            "膀胱"
+        ],
+        "effects": [
+            "利尿通淋",
+            "清心火",
+            "通经下乳"
+        ],
+        "contraindications": [
+            "肾功能不全者忌用",
+            "孕妇忌用"
+        ],
+        "dosage": "3-6g",
+        "alias": []
+    },
+    {
+        "id": "H076",
+        "name": "猪苓",
+        "pinyin": "Zhuling",
+        "category": "利水渗湿药",
+        "nature": "平",
+        "flavor": "甘、淡",
+        "meridians": [
+            "肾",
+            "膀胱"
+        ],
+        "effects": [
+            "利水渗湿"
+        ],
+        "contraindications": [
+            "无水湿者慎用"
+        ],
+        "dosage": "6-12g",
+        "alias": []
+    },
+    {
+        "id": "H077",
+        "name": "杏仁",
+        "pinyin": "Xingren",
+        "category": "止咳平喘药",
+        "nature": "微温",
+        "flavor": "苦",
+        "meridians": [
+            "肺",
+            "大肠"
+        ],
+        "effects": [
+            "降气止咳平喘",
+            "润肠通便"
+        ],
+        "contraindications": [
+            "阴虚咳嗽者慎用"
+        ],
+        "dosage": "5-10g",
+        "alias": [
+            "苦杏仁"
+        ]
+    },
+    {
+        "id": "H078",
+        "name": "川贝母",
+        "pinyin": "Chuanbeimu",
+        "category": "化痰药",
+        "nature": "微寒",
+        "flavor": "苦、甘",
+        "meridians": [
+            "肺",
+            "心"
+        ],
+        "effects": [
+            "清热润肺",
+            "化痰止咳",
+            "散结消痈"
+        ],
+        "contraindications": [
+            "脾胃虚寒者慎用",
+            "不宜与乌头同用"
+        ],
+        "dosage": "3-10g",
+        "alias": [
+            "贝母"
+        ]
+    },
+    {
+        "id": "H079",
+        "name": "桔梗",
+        "pinyin": "Jiegeng",
+        "category": "化痰药",
+        "nature": "平",
+        "flavor": "辛、苦",
+        "meridians": [
+            "肺"
+        ],
+        "effects": [
+            "宣肺利咽",
+            "祛痰排脓"
+        ],
+        "contraindications": [
+            "阴虚久咳者慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": []
+    },
+    {
+        "id": "H080",
+        "name": "白芷",
+        "pinyin": "Baizhi",
+        "category": "解表药",
+        "nature": "温",
+        "flavor": "辛",
+        "meridians": [
+            "肺",
+            "胃",
+            "大肠"
+        ],
+        "effects": [
+            "解表散寒",
+            "祛风止痛",
+            "通鼻窍",
+            "燥湿止带",
+            "消肿排脓"
+        ],
+        "contraindications": [
+            "阴虚血热者慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": []
+    },
+    {
+        "id": "H081",
+        "name": "细辛",
+        "pinyin": "Xixin",
+        "category": "解表药",
+        "nature": "温",
+        "flavor": "辛",
+        "meridians": [
+            "心",
+            "肺",
+            "肾"
+        ],
+        "effects": [
+            "解表散寒",
+            "祛风止痛",
+            "通窍",
+            "温肺化饮"
+        ],
+        "contraindications": [
+            "气虚多汗者慎用",
+            "不宜大量使用"
+        ],
+        "dosage": "1-3g",
+        "alias": []
+    },
+    {
+        "id": "H082",
+        "name": "羌活",
+        "pinyin": "Qianghuo",
+        "category": "解表药",
+        "nature": "温",
+        "flavor": "辛、苦",
+        "meridians": [
+            "膀胱",
+            "肾"
+        ],
+        "effects": [
+            "解表散寒",
+            "祛风胜湿",
+            "止痛"
+        ],
+        "contraindications": [
+            "血虚痹痛者慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": []
+    },
+    {
+        "id": "H083",
+        "name": "独活",
+        "pinyin": "Duhuo",
+        "category": "祛风湿药",
+        "nature": "微温",
+        "flavor": "辛、苦",
+        "meridians": [
+            "肾",
+            "膀胱"
+        ],
+        "effects": [
+            "祛风除湿",
+            "通痹止痛"
+        ],
+        "contraindications": [
+            "阴虚血燥者慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": []
+    },
+    {
+        "id": "H084",
+        "name": "威灵仙",
+        "pinyin": "Weilingxian",
+        "category": "祛风湿药",
+        "nature": "温",
+        "flavor": "辛、咸",
+        "meridians": [
+            "膀胱"
+        ],
+        "effects": [
+            "祛风除湿",
+            "通络止痛",
+            "消骨鲠"
+        ],
+        "contraindications": [
+            "气血虚弱者慎用"
+        ],
+        "dosage": "6-10g",
+        "alias": []
+    },
+    {
+        "id": "H085",
+        "name": "秦艽",
+        "pinyin": "Qinjiao",
+        "category": "祛风湿药",
+        "nature": "平",
+        "flavor": "辛、苦",
+        "meridians": [
+            "胃",
+            "肝",
+            "胆"
+        ],
+        "effects": [
+            "祛风湿",
+            "清湿热",
+            "止痹痛",
+            "退虚热"
+        ],
+        "contraindications": [
+            "久痛虚羸者慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": []
+    },
+    {
+        "id": "H086",
+        "name": "五味子",
+        "pinyin": "Wuweizi",
+        "category": "收涩药",
+        "nature": "温",
+        "flavor": "酸、甘",
+        "meridians": [
+            "肺",
+            "心",
+            "肾"
+        ],
+        "effects": [
+            "收敛固涩",
+            "益气生津",
+            "补肾宁心"
+        ],
+        "contraindications": [
+            "外有表邪者慎用"
+        ],
+        "dosage": "2-6g",
+        "alias": []
+    },
+    {
+        "id": "H087",
+        "name": "山茱萸",
+        "pinyin": "Shanzhuyu",
+        "category": "收涩药",
+        "nature": "微温",
+        "flavor": "酸、涩",
+        "meridians": [
+            "肝",
+            "肾"
+        ],
+        "effects": [
+            "补益肝肾",
+            "收涩固脱"
+        ],
+        "contraindications": [
+            "命门火炽者慎用"
+        ],
+        "dosage": "6-12g",
+        "alias": [
+            "萸肉"
+        ]
+    },
+    {
+        "id": "H088",
+        "name": "莲子",
+        "pinyin": "Lianzi",
+        "category": "收涩药",
+        "nature": "平",
+        "flavor": "甘、涩",
+        "meridians": [
+            "脾",
+            "肾",
+            "心"
+        ],
+        "effects": [
+            "补脾止泻",
+            "止带",
+            "益肾涩精",
+            "养心安神"
+        ],
+        "contraindications": [
+            "中满痞胀者慎用"
+        ],
+        "dosage": "6-15g",
+        "alias": []
+    },
+    {
+        "id": "H089",
+        "name": "芡实",
+        "pinyin": "Qianshi",
+        "category": "收涩药",
+        "nature": "平",
+        "flavor": "甘、涩",
+        "meridians": [
+            "脾",
+            "肾"
+        ],
+        "effects": [
+            "益肾固精",
+            "补脾止泻",
+            "除湿止带"
+        ],
+        "contraindications": [
+            "大小便不利者慎用"
+        ],
+        "dosage": "9-15g",
+        "alias": []
+    },
+    {
+        "id": "H090",
+        "name": "乳香",
+        "pinyin": "Ruxiang",
+        "category": "活血化瘀药",
+        "nature": "温",
+        "flavor": "辛、苦",
+        "meridians": [
+            "心",
+            "肝",
+            "脾"
+        ],
+        "effects": [
+            "活血行气止痛",
+            "消肿生肌"
+        ],
+        "contraindications": [
+            "孕妇忌用",
+            "无瘀滞者慎用"
+        ],
+        "dosage": "3-5g",
+        "alias": []
+    },
+    {
+        "id": "H091",
+        "name": "没药",
+        "pinyin": "Moyao",
+        "category": "活血化瘀药",
+        "nature": "平",
+        "flavor": "辛、苦",
+        "meridians": [
+            "心",
+            "肝",
+            "脾"
+        ],
+        "effects": [
+            "散瘀定痛",
+            "消肿生肌"
+        ],
+        "contraindications": [
+            "孕妇忌用",
+            "无瘀滞者慎用"
+        ],
+        "dosage": "3-5g",
+        "alias": []
+    },
+    {
+        "id": "H092",
+        "name": "益母草",
+        "pinyin": "Yimucao",
+        "category": "活血化瘀药",
+        "nature": "微寒",
+        "flavor": "辛、苦",
+        "meridians": [
+            "肝",
+            "心包",
+            "膀胱"
+        ],
+        "effects": [
+            "活血调经",
+            "利尿消肿",
+            "清热解毒"
+        ],
+        "contraindications": [
+            "孕妇忌用"
+        ],
+        "dosage": "9-30g",
+        "alias": []
+    },
+    {
+        "id": "H093",
+        "name": "牛膝",
+        "pinyin": "Niuxi",
+        "category": "活血化瘀药",
+        "nature": "平",
+        "flavor": "苦、酸",
+        "meridians": [
+            "肝",
+            "肾"
+        ],
+        "effects": [
+            "逐瘀通经",
+            "补肝肾",
+            "强筋骨",
+            "利尿通淋",
+            "引血下行"
+        ],
+        "contraindications": [
+            "孕妇忌用",
+            "月经过多者慎用"
+        ],
+        "dosage": "5-12g",
+        "alias": []
+    },
+    {
+        "id": "H094",
+        "name": "地龙",
+        "pinyin": "Dilong",
+        "category": "平肝息风药",
+        "nature": "寒",
+        "flavor": "咸",
+        "meridians": [
+            "肝",
+            "脾",
+            "膀胱"
+        ],
+        "effects": [
+            "清热定惊",
+            "通络",
+            "平喘",
+            "利尿"
+        ],
+        "contraindications": [
+            "脾胃虚寒者慎用"
+        ],
+        "dosage": "5-10g",
+        "alias": [
+            "蚯蚓"
+        ]
+    },
+    {
+        "id": "H095",
+        "name": "全蝎",
+        "pinyin": "Quanxie",
+        "category": "平肝息风药",
+        "nature": "平",
+        "flavor": "辛",
+        "meridians": [
+            "肝"
+        ],
+        "effects": [
+            "息风镇痉",
+            "攻毒散结",
+            "通络止痛"
+        ],
+        "contraindications": [
+            "血虚生风者慎用",
+            "孕妇忌用"
+        ],
+        "dosage": "3-5g",
+        "alias": []
+    },
+    {
+        "id": "H096",
+        "name": "僵蚕",
+        "pinyin": "Jiangcan",
+        "category": "平肝息风药",
+        "nature": "平",
+        "flavor": "咸、辛",
+        "meridians": [
+            "肝",
+            "肺",
+            "胃"
+        ],
+        "effects": [
+            "息风止痉",
+            "祛风止痛",
+            "化痰散结"
+        ],
+        "contraindications": [
+            "心虚不宁者慎用"
+        ],
+        "dosage": "5-10g",
+        "alias": []
+    },
+    {
+        "id": "H097",
+        "name": "朱砂",
+        "pinyin": "Zhusha",
+        "category": "安神药",
+        "nature": "微寒",
+        "flavor": "甘",
+        "meridians": [
+            "心"
+        ],
+        "effects": [
+            "清心镇惊",
+            "安神解毒"
+        ],
+        "contraindications": [
+            "不宜大量久服",
+            "肝肾功能不全者忌用"
+        ],
+        "dosage": "0.1-0.5g",
+        "alias": []
+    },
+    {
+        "id": "H098",
+        "name": "瓜蒌",
+        "pinyin": "Gualou",
+        "category": "化痰药",
+        "nature": "寒",
+        "flavor": "甘、微苦",
+        "meridians": [
+            "肺",
+            "胃",
+            "大肠"
+        ],
+        "effects": [
+            "清热涤痰",
+            "宽胸散结",
+            "润燥滑肠"
+        ],
+        "contraindications": [
+            "脾虚湿痰者慎用",
+            "不宜与乌头同用"
+        ],
+        "dosage": "9-15g",
+        "alias": [
+            "栝楼"
+        ]
+    },
+    {
+        "id": "H099",
+        "name": "竹茹",
+        "pinyin": "Zhuru",
+        "category": "化痰药",
+        "nature": "微寒",
+        "flavor": "甘",
+        "meridians": [
+            "肺",
+            "胃",
+            "心",
+            "胆"
+        ],
+        "effects": [
+            "清热化痰",
+            "除烦止呕"
+        ],
+        "contraindications": [
+            "寒痰咳喘者慎用"
+        ],
+        "dosage": "5-10g",
+        "alias": []
+    },
+    {
+        "id": "H100",
+        "name": "浙贝母",
+        "pinyin": "Zhebeimu",
+        "category": "化痰药",
+        "nature": "寒",
+        "flavor": "苦",
+        "meridians": [
+            "肺",
+            "心"
+        ],
+        "effects": [
+            "清热化痰止咳",
+            "解毒散结消痈"
+        ],
+        "contraindications": [
+            "寒痰者慎用",
+            "不宜与乌头同用"
+        ],
+        "dosage": "5-10g",
+        "alias": []
+    },
+    {
+        "id": "H101",
+        "name": "山楂",
+        "pinyin": "Shanzha",
+        "category": "消食药",
+        "nature": "微温",
+        "flavor": "酸、甘",
+        "meridians": [
+            "脾",
+            "胃",
+            "肝"
+        ],
+        "effects": [
+            "消食健胃",
+            "行气散瘀",
+            "化浊降脂"
+        ],
+        "contraindications": [
+            "脾胃虚弱者慎用"
+        ],
+        "dosage": "10-15g",
+        "alias": []
+    },
+    {
+        "id": "H102",
+        "name": "神曲",
+        "pinyin": "Shenqu",
+        "category": "消食药",
+        "nature": "温",
+        "flavor": "甘、辛",
+        "meridians": [
+            "脾",
+            "胃"
+        ],
+        "effects": [
+            "消食和胃"
+        ],
+        "contraindications": [
+            "脾阴不足者慎用"
+        ],
+        "dosage": "6-15g",
+        "alias": [
+            "六神曲"
+        ]
+    },
+    {
+        "id": "H103",
+        "name": "莱菔子",
+        "pinyin": "Laifuzi",
+        "category": "消食药",
+        "nature": "平",
+        "flavor": "辛、甘",
+        "meridians": [
+            "脾",
+            "胃",
+            "肺"
+        ],
+        "effects": [
+            "消食除胀",
+            "降气化痰"
+        ],
+        "contraindications": [
+            "气虚者慎用",
+            "不宜与人参同用"
+        ],
+        "dosage": "5-12g",
+        "alias": [
+            "萝卜子"
+        ]
+    },
+    {
+        "id": "H104",
+        "name": "鸡内金",
+        "pinyin": "Jineijin",
+        "category": "消食药",
+        "nature": "平",
+        "flavor": "甘",
+        "meridians": [
+            "脾",
+            "胃",
+            "小肠",
+            "膀胱"
+        ],
+        "effects": [
+            "健胃消食",
+            "涩精止遗",
+            "通淋化石"
+        ],
+        "contraindications": [
+            "脾虚无积者慎用"
+        ],
+        "dosage": "3-10g",
+        "alias": []
+    },
+    {
+        "id": "H105",
+        "name": "赤芍",
+        "pinyin": "Chishao",
+        "category": "清热药",
+        "nature": "微寒",
+        "flavor": "苦",
+        "meridians": [
+            "肝"
+        ],
+        "effects": [
+            "清热凉血",
+            "散瘀止痛"
+        ],
+        "contraindications": [
+            "血虚无瘀者慎用"
+        ],
+        "dosage": "6-12g",
+        "alias": []
+    },
+    {
+        "id": "H106",
+        "name": "地骨皮",
+        "pinyin": "Digupi",
+        "category": "清热药",
+        "nature": "寒",
+        "flavor": "甘",
+        "meridians": [
+            "肺",
+            "肝",
+            "肾"
+        ],
+        "effects": [
+            "凉血除蒸",
+            "清肺降火"
+        ],
+        "contraindications": [
+            "脾胃虚寒者慎用"
+        ],
+        "dosage": "9-15g",
+        "alias": []
+    },
+    {
+        "id": "H107",
+        "name": "白茅根",
+        "pinyin": "Baimaogen",
+        "category": "清热药",
+        "nature": "寒",
+        "flavor": "甘",
+        "meridians": [
+            "肺",
+            "胃",
+            "膀胱"
+        ],
+        "effects": [
+            "凉血止血",
+            "清热利尿"
+        ],
+        "contraindications": [
+            "脾胃虚寒者慎用"
+        ],
+        "dosage": "15-30g",
+        "alias": [
+            "茅根"
+        ]
+    },
+    {
+        "id": "H108",
+        "name": "侧柏叶",
+        "pinyin": "Cebaiye",
+        "category": "止血药",
+        "nature": "微寒",
+        "flavor": "苦、涩",
+        "meridians": [
+            "肺",
+            "肝",
+            "脾"
+        ],
+        "effects": [
+            "凉血止血",
+            "化痰止咳",
+            "生发乌发"
+        ],
+        "contraindications": [
+            "虚寒出血者慎用"
+        ],
+        "dosage": "6-12g",
+        "alias": []
+    },
+    {
+        "id": "H109",
+        "name": "小蓟",
+        "pinyin": "Xiaoji",
+        "category": "止血药",
+        "nature": "凉",
+        "flavor": "甘、苦",
+        "meridians": [
+            "心",
+            "肝"
+        ],
+        "effects": [
+            "凉血止血",
+            "散瘀解毒消肿"
+        ],
+        "contraindications": [
+            "脾胃虚寒者慎用"
+        ],
+        "dosage": "5-12g",
+        "alias": []
+    },
+    {
+        "id": "H110",
+        "name": "仙茅",
+        "pinyin": "Xianmao",
+        "category": "补阳药",
+        "nature": "热",
+        "flavor": "辛",
+        "meridians": [
+            "肾",
+            "肝",
+            "脾"
+        ],
+        "effects": [
+            "补肾阳",
+            "强筋骨",
+            "祛寒湿"
+        ],
+        "contraindications": [
+            "阴虚火旺者忌用"
+        ],
+        "dosage": "3-10g",
+        "alias": []
+    },
+    {
+        "id": "H111",
+        "name": "淫羊藿",
+        "pinyin": "Yinyanghuo",
+        "category": "补阳药",
+        "nature": "温",
+        "flavor": "辛、甘",
+        "meridians": [
+            "肝",
+            "肾"
+        ],
+        "effects": [
+            "补肾壮阳",
+            "祛风除湿"
+        ],
+        "contraindications": [
+            "阴虚火旺者慎用"
+        ],
+        "dosage": "6-10g",
+        "alias": [
+            "仙灵脾"
+        ]
+    },
+    {
+        "id": "H112",
+        "name": "菟丝子",
+        "pinyin": "Tusizi",
+        "category": "补阳药",
+        "nature": "平",
+        "flavor": "辛、甘",
+        "meridians": [
+            "肝",
+            "肾",
+            "脾"
+        ],
+        "effects": [
+            "补阳益阴",
+            "固精缩尿",
+            "明目止泻"
+        ],
+        "contraindications": [
+            "火旺便结者慎用"
+        ],
+        "dosage": "6-12g",
+        "alias": []
+    },
+    {
+        "id": "H113",
+        "name": "补骨脂",
+        "pinyin": "Buguzhi",
+        "category": "补阳药",
+        "nature": "温",
+        "flavor": "辛、苦",
+        "meridians": [
+            "肾",
+            "脾"
+        ],
+        "effects": [
+            "温肾助阳",
+            "纳气平喘",
+            "温脾止泻"
+        ],
+        "contraindications": [
+            "阴虚火旺者忌用"
+        ],
+        "dosage": "6-10g",
+        "alias": [
+            "破故纸"
+        ]
+    },
+    {
+        "id": "H114",
+        "name": "沙参",
+        "pinyin": "Shashen",
+        "category": "补阴药",
+        "nature": "微寒",
+        "flavor": "甘",
+        "meridians": [
+            "肺",
+            "胃"
+        ],
+        "effects": [
+            "养阴清肺",
+            "益胃生津"
+        ],
+        "contraindications": [
+            "风寒咳嗽者禁用"
+        ],
+        "dosage": "9-15g",
+        "alias": [
+            "北沙参"
+        ]
+    },
+    {
+        "id": "H115",
+        "name": "石斛",
+        "pinyin": "Shihu",
+        "category": "补阴药",
+        "nature": "微寒",
+        "flavor": "甘",
+        "meridians": [
+            "胃",
+            "肾"
+        ],
+        "effects": [
+            "益胃生津",
+            "滋阴清热"
+        ],
+        "contraindications": [
+            "温热病早期者慎用"
+        ],
+        "dosage": "6-12g",
+        "alias": [
+            "铁皮石斛"
+        ]
+    },
+    {
+        "id": "H116",
+        "name": "百合",
+        "pinyin": "Baihe",
+        "category": "补阴药",
+        "nature": "寒",
+        "flavor": "甘",
+        "meridians": [
+            "心",
+            "肺"
+        ],
+        "effects": [
+            "养阴润肺",
+            "清心安神"
+        ],
+        "contraindications": [
+            "风寒咳嗽者慎用"
+        ],
+        "dosage": "6-12g",
+        "alias": []
+    },
+    {
+        "id": "H117",
+        "name": "玉竹",
+        "pinyin": "Yuzhu",
+        "category": "补阴药",
+        "nature": "微寒",
+        "flavor": "甘",
+        "meridians": [
+            "肺",
+            "胃"
+        ],
+        "effects": [
+            "养阴润燥",
+            "生津止渴"
+        ],
+        "contraindications": [
+            "痰湿内蕴者慎用"
+        ],
+        "dosage": "6-12g",
+        "alias": []
+    },
+    {
+        "id": "H118",
+        "name": "龟甲",
+        "pinyin": "Guijia",
+        "category": "补阴药",
+        "nature": "微寒",
+        "flavor": "咸、甘",
+        "meridians": [
+            "肝",
+            "肾",
+            "心"
+        ],
+        "effects": [
+            "滋阴潜阳",
+            "益肾强骨",
+            "养血补心",
+            "固经止崩"
+        ],
+        "contraindications": [
+            "孕妇慎用",
+            "脾胃虚寒者慎用"
+        ],
+        "dosage": "9-24g(先煎)",
+        "alias": [
+            "龟板"
+        ]
+    },
+    {
+        "id": "H119",
+        "name": "鳖甲",
+        "pinyin": "Biejia",
+        "category": "补阴药",
+        "nature": "微寒",
+        "flavor": "咸",
+        "meridians": [
+            "肝",
+            "肾"
+        ],
+        "effects": [
+            "滋阴潜阳",
+            "退热除蒸",
+            "软坚散结"
+        ],
+        "contraindications": [
+            "脾胃虚寒者慎用",
+            "孕妇慎用"
+        ],
+        "dosage": "9-24g(先煎)",
+        "alias": []
+    },
+    {
+        "id": "H120",
+        "name": "西洋参",
+        "pinyin": "Xiyangshen",
+        "category": "补气药",
+        "nature": "凉",
+        "flavor": "甘、微苦",
+        "meridians": [
+            "心",
+            "肺",
+            "肾"
+        ],
+        "effects": [
+            "补气养阴",
+            "清热生津"
+        ],
+        "contraindications": [
+            "中阳衰微者慎用"
+        ],
+        "dosage": "3-6g",
+        "alias": [
+            "花旗参"
+        ]
+    }
+]
