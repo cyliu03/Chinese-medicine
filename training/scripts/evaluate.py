@@ -46,17 +46,13 @@ def main():
         symptom_vocab = json.load(f)
     with open(os.path.join(args.data_dir, 'herb_vocab.json'), 'r', encoding='utf-8') as f:
         herb_vocab = json.load(f)
-    with open(os.path.join(args.data_dir, 'formula_vocab.json'), 'r', encoding='utf-8') as f:
-        formula_vocab = json.load(f)
 
     # 反转词表
-    idx_to_formula = {v: k for k, v in formula_vocab.items()}
     idx_to_herb = {v: k for k, v in herb_vocab.items()}
 
     # 构建模型
     model = TCMFormulaNet(
         num_symptoms=len(symptom_vocab),
-        num_formulas=len(formula_vocab),
         num_herbs=len(herb_vocab),
         embed_dim=saved_args.get('embed_dim', 256),
         num_heads=saved_args.get('num_heads', 8),
@@ -74,33 +70,21 @@ def main():
     # 加载验证集
     val_dataset = TCMDataset(
         os.path.join(args.data_dir, 'val_data.json'),
-        symptom_vocab, herb_vocab, formula_vocab, augment=False
+        symptom_vocab, herb_vocab, augment=False
     )
     val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
 
     # 评估
-    correct_top1 = 0
-    correct_topk = 0
     total = 0
     herb_tp, herb_fp, herb_fn = 0, 0, 0
 
+    print("⏳ 正在评估验证集...")
     with torch.no_grad():
         for batch in val_loader:
             symptoms = batch['symptoms'].to(device)
-            formula_target = batch['formula_target'].to(device)
             herb_target = batch['herb_target'].to(device)
 
-            formula_logits, herb_logits, dosage_pred = model(symptoms)
-
-            # Top-1 准确率
-            pred = formula_logits.argmax(dim=-1)
-            correct_top1 += (pred == formula_target).sum().item()
-
-            # Top-K 准确率
-            _, topk_pred = formula_logits.topk(args.top_k, dim=-1)
-            for i in range(symptoms.size(0)):
-                if formula_target[i] in topk_pred[i]:
-                    correct_topk += 1
+            herb_logits, dosage_pred = model(symptoms)
 
             # 药材 Precision / Recall / F1
             herb_pred = (torch.sigmoid(herb_logits) > 0.5).float()
@@ -115,17 +99,15 @@ def main():
     f1 = 2 * precision * recall / max(precision + recall, 1e-8)
 
     print(f'\n📊 评估结果 ({total} 个样本):')
-    print(f'   方剂分类 Top-1 准确率: {correct_top1/total*100:.1f}%')
-    print(f'   方剂分类 Top-{args.top_k} 准确率: {correct_topk/total*100:.1f}%')
-    print(f'   药材预测 Precision:     {precision:.3f}')
-    print(f'   药材预测 Recall:        {recall:.3f}')
-    print(f'   药材预测 F1:            {f1:.3f}')
+    print(f'   药材预测 Precision (查准率): {precision:.3f}')
+    print(f'   药材预测 Recall    (查全率): {recall:.3f}')
+    print(f'   药材预测 F1 Score         : {f1:.3f}')
 
     # 交互式测试
     print('\n' + '=' * 60)
     print('  🧪 交互式测试 (输入症状标签，空行退出)')
     print('=' * 60)
-    print(f'  可用症状: {", ".join(list(symptom_vocab.keys())[:20])}...')
+    print(f'  可用症状示例: {", ".join(list(symptom_vocab.keys())[:15])}...')
 
     while True:
         try:
@@ -135,36 +117,56 @@ def main():
         if not raw:
             break
 
+        if raw == "test1": 
+            raw = "发热,恶寒,头痛,无汗"
+            print(f" (自动填充测试1: {raw})")
+        
+        if raw == "test2": 
+            raw = "恶心,呕吐,腹痛,腹泻"
+            print(f" (自动填充测试2: {raw})")
+
         symptoms_input = [s.strip() for s in raw.split(',')]
         symptom_vec = torch.zeros(1, len(symptom_vocab))
+        valid_symptoms = []
         for s in symptoms_input:
             if s in symptom_vocab:
                 symptom_vec[0, symptom_vocab[s]] = 1.0
+                valid_symptoms.append(s)
             else:
                 print(f'   ⚠️ 未知症状: {s}')
 
-        symptom_vec = symptom_vec.to(device)
-        result = model.predict(symptom_vec, top_k=3)
+        print(f"👉 确认症状: {', '.join(valid_symptoms)}")
 
-        print(f'\n  📋 推荐方剂:')
-        for i in range(result['formula_indices'].size(1)):
-            idx = result['formula_indices'][0, i].item()
-            prob = result['formula_probs'][0, i].item()
-            name = idx_to_formula.get(idx, f'方剂{idx}')
-            print(f'     {i+1}. {name} (置信度: {prob*100:.1f}%)')
+        symptom_vec = symptom_vec.to(device)
+        result = model.predict(symptom_vec)
 
         # 推荐药材
         herb_probs = result['herb_probs'][0]
         dosages = result['dosages'][0]
         selected = (herb_probs > 0.5).nonzero(as_tuple=True)[0]
+        
         if len(selected) > 0:
-            print(f'\n  💊 推荐药材:')
+            print(f'\n  💊 AI 中医师 开具处方:')
+            print(f'  {"药材":<10} | {"剂量":<8} | {"置信度":<8}')
+            print('  ' + '-'*35)
+            
+            # 按概率排序
+            prescriptions = []
             for idx in selected:
                 idx = idx.item()
                 name = idx_to_herb.get(idx, f'药{idx}')
                 prob = herb_probs[idx].item()
                 dose = dosages[idx].item()
-                print(f'     · {name} {dose:.0f}g (概率: {prob:.2f})')
+                # 过滤掉低于 1g 的微小剂量预测
+                if dose >= 1.0:
+                    prescriptions.append((name, dose, prob))
+            
+            prescriptions.sort(key=lambda x: x[2], reverse=True)
+            
+            for name, dose, prob in prescriptions:
+                print(f'  {name:<10} | {dose:>5.1f}g   | {prob*100:>5.1f}%')
+        else:
+            print(f'\n  ⚠️ 症状信息不足，AI 认为暂不需要服药。')
 
     print('\n👋 评估结束')
 

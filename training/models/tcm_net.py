@@ -211,7 +211,13 @@ class MultiTaskLoss(nn.Module):
             dosage_target: (batch, num_herbs) 真实剂量标签 (克)
         """
         # Task 1: 药材预测 — Binary Cross Entropy
-        loss_herb = F.binary_cross_entropy_with_logits(herb_logits, herb_target)
+        # 针对极度不平衡问题：4400种药材中，每张处方通常只有 10 种左右 (正负比例约 1:400)
+        # 为防止模型偷懒全部预测 0，给正样本施加巨大的 loss 权重
+        # TODO: 未来可以根据数据集中各药材的真实先验频率做动态平衡
+        pos_weight = torch.tensor([400.0], device=herb_logits.device)
+        loss_herb = F.binary_cross_entropy_with_logits(
+            herb_logits, herb_target, pos_weight=pos_weight
+        )
 
         # Task 2: 剂量回归 — MSE (只在有药材的位置计算, 目标转为 log1p 避免极大Loss)
         mask = herb_target > 0
