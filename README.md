@@ -122,29 +122,27 @@ print(f"模型下载到: {model_dir}")
 
 ### 方式二：HuggingFace
 
-**使用huggingface_hub**
 ```python
 from huggingface_hub import hf_hub_download
 
 # 下载模型文件
 model_path = hf_hub_download(
-    repo_id="cy1750/qihuang-ai-model",
+    repo_id="zw1223/qihuang-ai-model",
     filename="best_model.pt",
     local_dir="./training/checkpoints"
 )
 
 # 下载词汇表
 data_path = hf_hub_download(
-    repo_id="cy1750/qihuang-ai-model",
+    repo_id="zw1223/qihuang-ai-model",
     filename="meta.json",
     local_dir="./data/chatmed"
 )
 ```
 
 **手动下载**
-1. 访问 [ModelScope模型仓库](https://modelscope.cn/models/cy1750/qihuang-ai-model)
-2. 下载 `best_model.pt` 到 `training/checkpoints/`
-3. 下载 `meta.json` 到 `data/chatmed/`
+- ModelScope: https://modelscope.cn/models/cy1750/qihuang-ai-model
+- HuggingFace: https://huggingface.co/zw1223/qihuang-ai-model
 
 ---
 
