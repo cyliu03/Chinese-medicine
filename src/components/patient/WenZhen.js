@@ -1,82 +1,91 @@
 'use client';
 
-import { useDiagnosis } from '@/context/DiagnosisContext';
-import symptomsData from '@/data/symptoms.json';
+import { useApp } from '@/context/AppContext';
 
 export default function WenZhen() {
-    const { diagnosis, updateWenZhen } = useDiagnosis();
-    const { wenZhen } = diagnosis;
-    const data = symptomsData.wenZhen;
+    const { currentPatient, updateDiagnosis } = useApp();
+    const { wenZhen } = currentPatient.diagnosis;
 
-    const handleSelect = (field, value) => {
-        updateWenZhen({ [field]: wenZhen[field] === value ? '' : value });
+    const options = {
+        voiceType: ['正常', '声音低微', '声音嘶哑', '语声重浊'],
+        breathType: ['正常', '气短', '气促', '呼吸深长'],
+        coughType: ['无咳嗽', '干咳少痰', '咳嗽痰多色白', '咳嗽痰黄稠', '咳声重浊'],
+        bodySmell: ['正常', '口臭', '体味重'],
+    };
+
+    const handleChange = (field, value) => {
+        updateDiagnosis('wenZhen', { [field]: value });
     };
 
     return (
-        <div className="card page-enter">
+        <div className="card">
             <div className="card-header">
                 <div className="card-icon">👂</div>
                 <div>
                     <div className="card-title">闻诊</div>
-                    <div className="card-subtitle">听声音、辨气味</div>
+                    <div className="card-subtitle">听声音、嗅气味，了解患者身体状况</div>
                 </div>
             </div>
 
             <div className="form-section">
-                <div className="form-section-title">🗣️ 声音特征</div>
-                <div className="option-grid wide">
-                    {data.voiceType.map(item => (
+                <div className="form-section-title">声音观察</div>
+                <div style={{ display: 'grid', gap: 'var(--space-lg)' }}>
+                    <div>
+                        <label className="form-label">声音特点</label>
+                        <div className="option-grid" style={{ marginTop: 'var(--space-sm)' }}>
+                            {options.voiceType.map(opt => (
+                                <div
+                                    key={opt}
+                                    className={`option-card ${wenZhen.voiceType === opt ? 'selected' : ''}`}
+                                    onClick={() => handleChange('voiceType', opt)}
+                                >
+                                    <div className="option-card-label">{opt}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div>
+                        <label className="form-label">呼吸特点</label>
+                        <div className="option-grid" style={{ marginTop: 'var(--space-sm)' }}>
+                            {options.breathType.map(opt => (
+                                <div
+                                    key={opt}
+                                    className={`option-card ${wenZhen.breathType === opt ? 'selected' : ''}`}
+                                    onClick={() => handleChange('breathType', opt)}
+                                >
+                                    <div className="option-card-label">{opt}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="form-section">
+                <div className="form-section-title">咳嗽情况</div>
+                <div className="option-grid">
+                    {options.coughType.map(opt => (
                         <div
-                            key={item.id}
-                            className={`option-card ${wenZhen.voiceType === item.label ? 'selected' : ''}`}
-                            onClick={() => handleSelect('voiceType', item.label)}
+                            key={opt}
+                            className={`option-card ${wenZhen.coughType === opt ? 'selected' : ''}`}
+                            onClick={() => handleChange('coughType', opt)}
                         >
-                            <div className="option-card-label">{item.label}</div>
+                            <div className="option-card-label">{opt}</div>
                         </div>
                     ))}
                 </div>
             </div>
 
             <div className="form-section">
-                <div className="form-section-title">🌬️ 呼吸特征</div>
-                <div className="option-grid wide">
-                    {data.breathType.map(item => (
+                <div className="form-section-title">气味观察</div>
+                <div className="option-grid">
+                    {options.bodySmell.map(opt => (
                         <div
-                            key={item.id}
-                            className={`option-card ${wenZhen.breathType === item.label ? 'selected' : ''}`}
-                            onClick={() => handleSelect('breathType', item.label)}
+                            key={opt}
+                            className={`option-card ${wenZhen.bodySmell === opt ? 'selected' : ''}`}
+                            onClick={() => handleChange('bodySmell', opt)}
                         >
-                            <div className="option-card-label">{item.label}</div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            <div className="form-section">
-                <div className="form-section-title">😷 咳嗽情况</div>
-                <div className="option-grid wide">
-                    {data.coughType.map(item => (
-                        <div
-                            key={item.id}
-                            className={`option-card ${wenZhen.coughType === item.label ? 'selected' : ''}`}
-                            onClick={() => handleSelect('coughType', item.label)}
-                        >
-                            <div className="option-card-label">{item.label}</div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            <div className="form-section">
-                <div className="form-section-title">👃 气味</div>
-                <div className="option-grid wide">
-                    {data.bodySmell.map(item => (
-                        <div
-                            key={item.id}
-                            className={`option-card ${wenZhen.bodySmell === item.label ? 'selected' : ''}`}
-                            onClick={() => handleSelect('bodySmell', item.label)}
-                        >
-                            <div className="option-card-label">{item.label}</div>
+                            <div className="option-card-label">{opt}</div>
                         </div>
                     ))}
                 </div>

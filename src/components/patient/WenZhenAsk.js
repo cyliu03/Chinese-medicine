@@ -1,171 +1,162 @@
 'use client';
 
-import { useDiagnosis } from '@/context/DiagnosisContext';
-import symptomsData from '@/data/symptoms.json';
+import { useState } from 'react';
+import { useApp } from '@/context/AppContext';
 
 export default function WenZhenAsk() {
-    const { diagnosis, updateWenZhenAsk } = useDiagnosis();
-    const { wenZhenAsk } = diagnosis;
-    const data = symptomsData.wenZhenAsk;
+    const { currentPatient, updateDiagnosis } = useApp();
+    const { wenZhenAsk } = currentPatient.diagnosis;
 
-    const toggleSymptom = (label) => {
+    const symptomOptions = [
+        '头痛', '发热', '恶寒', '失眠', '腹痛', '腹胀', '恶心呕吐', '腹泻', '便秘',
+        '心悸', '胸闷', '头晕', '耳鸣', '目赤', '咽痛', '口干口渴', '腰膝酸软',
+        '关节疼痛', '四肢冰冷', '多汗', '盗汗', '水肿', '月经不调', '食欲不振', '乏力',
+    ];
+
+    const durationOptions = ['1天内', '1-3天', '3-7天', '1-2周', '2周以上', '慢性反复'];
+    const sweatingOptions = ['正常无汗', '汗出恶风', '自汗(白天出汗)', '盗汗(夜间出汗)', '大汗'];
+    const thirstOptions = ['正常', '口渴多饮', '口干不欲饮', '渴喜热饮'];
+    const sleepOptions = ['正常', '入睡困难', '多梦易醒', '嗜睡'];
+    const emotionOptions = ['正常', '烦躁易怒', '情绪低落', '焦虑紧张'];
+
+    const handleSymptomToggle = (symptom) => {
         const current = wenZhenAsk.symptoms || [];
-        const updated = current.includes(label)
-            ? current.filter(s => s !== label)
-            : [...current, label];
-        updateWenZhenAsk({ symptoms: updated });
+        const updated = current.includes(symptom)
+            ? current.filter(s => s !== symptom)
+            : [...current, symptom];
+        updateDiagnosis('wenZhenAsk', { symptoms: updated });
     };
 
-    const handleSelect = (field, value) => {
-        updateWenZhenAsk({ [field]: wenZhenAsk[field] === value ? '' : value });
+    const handleChange = (field, value) => {
+        updateDiagnosis('wenZhenAsk', { [field]: value });
     };
 
     return (
-        <div className="card page-enter">
+        <div className="card">
             <div className="card-header">
                 <div className="card-icon">💬</div>
                 <div>
                     <div className="card-title">问诊</div>
-                    <div className="card-subtitle">详细询问症状、病史、生活习惯</div>
+                    <div className="card-subtitle">详细询问患者的症状、病史等信息</div>
                 </div>
             </div>
 
-            {/* 主诉 */}
             <div className="form-section">
-                <div className="form-section-title">📝 主诉（主要不适）</div>
+                <div className="form-section-title">主诉</div>
                 <div className="form-group">
                     <textarea
                         className="form-textarea"
-                        placeholder="请描述您目前最主要的不适症状，例如：头痛三天，伴有发热恶寒..."
+                        placeholder="请描述您最主要的不适症状..."
                         value={wenZhenAsk.mainComplaint || ''}
-                        onChange={(e) => updateWenZhenAsk({ mainComplaint: e.target.value })}
-                        rows={3}
+                        onChange={(e) => handleChange('mainComplaint', e.target.value)}
+                        rows={2}
                     />
                 </div>
             </div>
 
-            {/* 症状多选 */}
             <div className="form-section">
-                <div className="form-section-title">🩺 伴随症状（可多选）</div>
-                <div className="option-grid wide">
-                    {data.symptoms.map(item => (
+                <div className="form-section-title">症状选择</div>
+                <p style={{ fontSize: '0.85rem', color: 'var(--ink-gray)', marginBottom: 'var(--space-sm)' }}>
+                    请选择您目前存在的症状（可多选）
+                </p>
+                <div className="symptom-grid">
+                    {symptomOptions.map(symptom => (
                         <div
-                            key={item.id}
-                            className={`option-card ${(wenZhenAsk.symptoms || []).includes(item.label) ? 'selected' : ''}`}
-                            onClick={() => toggleSymptom(item.label)}
+                            key={symptom}
+                            className={`symptom-tag ${(wenZhenAsk.symptoms || []).includes(symptom) ? 'selected' : ''}`}
+                            onClick={() => handleSymptomToggle(symptom)}
                         >
-                            <div className="option-card-icon">{item.icon}</div>
-                            <div className="option-card-label">{item.label}</div>
+                            {symptom}
                         </div>
                     ))}
                 </div>
             </div>
 
-            {/* 病程 */}
             <div className="form-section">
-                <div className="form-section-title">⏱️ 病程（症状持续时间）</div>
+                <div className="form-section-title">病程</div>
                 <div className="option-grid">
-                    {data.duration.map(item => (
+                    {durationOptions.map(opt => (
                         <div
-                            key={item.id}
-                            className={`option-card ${wenZhenAsk.duration === item.label ? 'selected' : ''}`}
-                            onClick={() => handleSelect('duration', item.label)}
+                            key={opt}
+                            className={`option-card ${wenZhenAsk.duration === opt ? 'selected' : ''}`}
+                            onClick={() => handleChange('duration', opt)}
                         >
-                            <div className="option-card-label">{item.label}</div>
+                            <div className="option-card-label">{opt}</div>
                         </div>
                     ))}
                 </div>
             </div>
 
-            {/* 饮食偏好 */}
             <div className="form-section">
-                <div className="form-section-title">🍵 饮食偏好</div>
-                <div className="option-grid">
-                    {data.dietPreference.map(item => (
-                        <div
-                            key={item.id}
-                            className={`option-card ${wenZhenAsk.dietPreference === item.label ? 'selected' : ''}`}
-                            onClick={() => handleSelect('dietPreference', item.label)}
-                        >
-                            <div className="option-card-label">{item.label}</div>
+                <div className="form-section-title">其他症状</div>
+                <div style={{ display: 'grid', gap: 'var(--space-lg)' }}>
+                    <div>
+                        <label className="form-label">汗出情况</label>
+                        <div className="option-grid" style={{ marginTop: 'var(--space-sm)' }}>
+                            {sweatingOptions.map(opt => (
+                                <div
+                                    key={opt}
+                                    className={`option-card ${wenZhenAsk.sweating === opt ? 'selected' : ''}`}
+                                    onClick={() => handleChange('sweating', opt)}
+                                >
+                                    <div className="option-card-label">{opt}</div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    </div>
+                    <div>
+                        <label className="form-label">口渴情况</label>
+                        <div className="option-grid" style={{ marginTop: 'var(--space-sm)' }}>
+                            {thirstOptions.map(opt => (
+                                <div
+                                    key={opt}
+                                    className={`option-card ${wenZhenAsk.thirst === opt ? 'selected' : ''}`}
+                                    onClick={() => handleChange('thirst', opt)}
+                                >
+                                    <div className="option-card-label">{opt}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div>
+                        <label className="form-label">睡眠情况</label>
+                        <div className="option-grid" style={{ marginTop: 'var(--space-sm)' }}>
+                            {sleepOptions.map(opt => (
+                                <div
+                                    key={opt}
+                                    className={`option-card ${wenZhenAsk.sleepQuality === opt ? 'selected' : ''}`}
+                                    onClick={() => handleChange('sleepQuality', opt)}
+                                >
+                                    <div className="option-card-label">{opt}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div>
+                        <label className="form-label">情绪状态</label>
+                        <div className="option-grid" style={{ marginTop: 'var(--space-sm)' }}>
+                            {emotionOptions.map(opt => (
+                                <div
+                                    key={opt}
+                                    className={`option-card ${wenZhenAsk.emotionState === opt ? 'selected' : ''}`}
+                                    onClick={() => handleChange('emotionState', opt)}
+                                >
+                                    <div className="option-card-label">{opt}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            {/* 汗出 */}
             <div className="form-section">
-                <div className="form-section-title">💦 汗出情况</div>
-                <div className="option-grid wide">
-                    {data.sweating.map(item => (
-                        <div
-                            key={item.id}
-                            className={`option-card ${wenZhenAsk.sweating === item.label ? 'selected' : ''}`}
-                            onClick={() => handleSelect('sweating', item.label)}
-                        >
-                            <div className="option-card-label">{item.label}</div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* 口渴 */}
-            <div className="form-section">
-                <div className="form-section-title">💧 口渴情况</div>
-                <div className="option-grid wide">
-                    {data.thirst.map(item => (
-                        <div
-                            key={item.id}
-                            className={`option-card ${wenZhenAsk.thirst === item.label ? 'selected' : ''}`}
-                            onClick={() => handleSelect('thirst', item.label)}
-                        >
-                            <div className="option-card-label">{item.label}</div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* 睡眠 */}
-            <div className="form-section">
-                <div className="form-section-title">😴 睡眠情况</div>
-                <div className="option-grid wide">
-                    {data.sleepQuality.map(item => (
-                        <div
-                            key={item.id}
-                            className={`option-card ${wenZhenAsk.sleepQuality === item.label ? 'selected' : ''}`}
-                            onClick={() => handleSelect('sleepQuality', item.label)}
-                        >
-                            <div className="option-card-label">{item.label}</div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* 情绪 */}
-            <div className="form-section">
-                <div className="form-section-title">🧠 情绪状态</div>
-                <div className="option-grid wide">
-                    {data.emotionState.map(item => (
-                        <div
-                            key={item.id}
-                            className={`option-card ${wenZhenAsk.emotionState === item.label ? 'selected' : ''}`}
-                            onClick={() => handleSelect('emotionState', item.label)}
-                        >
-                            <div className="option-card-label">{item.label}</div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* 既往病史 */}
-            <div className="form-section">
-                <div className="form-section-title">📋 既往病史</div>
+                <div className="form-section-title">病史</div>
                 <div className="form-group">
                     <textarea
                         className="form-textarea"
-                        placeholder="请填写您的既往病史，例如：高血压、糖尿病、过敏史等..."
+                        placeholder="请描述您的既往病史、过敏史等..."
                         value={wenZhenAsk.medicalHistory || ''}
-                        onChange={(e) => updateWenZhenAsk({ medicalHistory: e.target.value })}
+                        onChange={(e) => handleChange('medicalHistory', e.target.value)}
                         rows={2}
                     />
                 </div>

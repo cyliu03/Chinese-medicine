@@ -1,178 +1,128 @@
 'use client';
 
-import { useRef } from 'react';
-import { useDiagnosis } from '@/context/DiagnosisContext';
-import symptomsData from '@/data/symptoms.json';
+import { useApp } from '@/context/AppContext';
 
 export default function WangZhen() {
-    const { diagnosis, updateWangZhen } = useDiagnosis();
-    const { wangZhen } = diagnosis;
-    const faceFileRef = useRef(null);
-    const tongueFileRef = useRef(null);
+    const { currentPatient, updateDiagnosis } = useApp();
+    const { wangZhen } = currentPatient.diagnosis;
 
-    const data = symptomsData.wangZhen;
-
-    const handleSelect = (field, value) => {
-        updateWangZhen({ [field]: wangZhen[field] === value ? '' : value });
+    const options = {
+        faceColor: ['正常', '面色苍白', '面色萎黄', '面色红赤', '面色青紫', '面色晦暗'],
+        tongueColor: ['正常', '淡白舌', '红舌', '绛舌', '紫舌', '青舌'],
+        tongueCoating: ['薄白苔(正常)', '白厚苔', '白滑苔', '黄苔', '黄腻苔', '无苔/少苔'],
+        tongueShape: ['正常', '齿痕舌', '胖大舌', '瘦薄舌', '裂纹舌'],
+        bodyType: ['正常', '体瘦', '体胖', '浮肿'],
+        spirit: ['正常', '精神疲惫', '烦躁不安', '神志恍惚'],
     };
 
-    const handlePhoto = (field, e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (ev) => updateWangZhen({ [field]: ev.target.result });
-            reader.readAsDataURL(file);
-        }
+    const handleChange = (field, value) => {
+        updateDiagnosis('wangZhen', { [field]: value });
     };
 
     return (
-        <div className="card page-enter">
+        <div className="card">
             <div className="card-header">
                 <div className="card-icon">👁️</div>
                 <div>
                     <div className="card-title">望诊</div>
-                    <div className="card-subtitle">观察面色、舌象、体态、精神状态</div>
+                    <div className="card-subtitle">观察患者的面色、舌象、体态等外在表现</div>
                 </div>
             </div>
 
-            {/* 面色 */}
             <div className="form-section">
-                <div className="form-section-title">🎨 面色观察</div>
+                <div className="form-section-title">面色观察</div>
                 <div className="option-grid">
-                    {data.faceColor.map(item => (
+                    {options.faceColor.map(opt => (
                         <div
-                            key={item.id}
-                            className={`option-card ${wangZhen.faceColor === item.label ? 'selected' : ''}`}
-                            onClick={() => handleSelect('faceColor', item.label)}
+                            key={opt}
+                            className={`option-card ${wangZhen.faceColor === opt ? 'selected' : ''}`}
+                            onClick={() => handleChange('faceColor', opt)}
                         >
-                            <div className="option-card-icon">{item.icon}</div>
-                            <div className="option-card-label">{item.label}</div>
+                            <div className="option-card-label">{opt}</div>
                         </div>
                     ))}
                 </div>
             </div>
 
-            {/* 拍照识图 — 面部 */}
             <div className="form-section">
-                <div className="form-section-title">📸 面部拍照（可选）</div>
-                <div
-                    className={`photo-upload-area ${wangZhen.facePhoto ? 'has-image' : ''}`}
-                    onClick={() => faceFileRef.current?.click()}
-                >
-                    {wangZhen.facePhoto ? (
-                        <img src={wangZhen.facePhoto} alt="面部照片" className="photo-preview" />
-                    ) : (
-                        <>
-                            <div className="photo-upload-icon">📷</div>
-                            <div className="photo-upload-text">点击上传面部照片，辅助望诊判断</div>
-                            <div style={{ fontSize: '0.75rem', color: 'var(--light-ink)', marginTop: '4px' }}>
-                                支持 JPG / PNG 格式
-                            </div>
-                        </>
-                    )}
-                </div>
-                <input ref={faceFileRef} type="file" accept="image/*" hidden onChange={(e) => handlePhoto('facePhoto', e)} />
-            </div>
-
-            {/* 舌色 */}
-            <div className="form-section">
-                <div className="form-section-title">👅 舌色</div>
-                <div className="option-grid wide">
-                    {data.tongueColor.map(item => (
-                        <div
-                            key={item.id}
-                            className={`option-card ${wangZhen.tongueColor === item.label ? 'selected' : ''}`}
-                            onClick={() => handleSelect('tongueColor', item.label)}
-                        >
-                            <div className="option-card-label">{item.label}</div>
-                            <div className="option-card-desc">{item.desc}</div>
+                <div className="form-section-title">舌象观察</div>
+                <div style={{ display: 'grid', gap: 'var(--space-md)' }}>
+                    <div>
+                        <label className="form-label">舌色</label>
+                        <div className="option-grid" style={{ marginTop: 'var(--space-sm)' }}>
+                            {options.tongueColor.map(opt => (
+                                <div
+                                    key={opt}
+                                    className={`option-card ${wangZhen.tongueColor === opt ? 'selected' : ''}`}
+                                    onClick={() => handleChange('tongueColor', opt)}
+                                >
+                                    <div className="option-card-label">{opt}</div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* 舌苔 */}
-            <div className="form-section">
-                <div className="form-section-title">🫧 舌苔</div>
-                <div className="option-grid wide">
-                    {data.tongueCoating.map(item => (
-                        <div
-                            key={item.id}
-                            className={`option-card ${wangZhen.tongueCoating === item.label ? 'selected' : ''}`}
-                            onClick={() => handleSelect('tongueCoating', item.label)}
-                        >
-                            <div className="option-card-label">{item.label}</div>
-                            <div className="option-card-desc">{item.desc}</div>
+                    </div>
+                    <div>
+                        <label className="form-label">舌苔</label>
+                        <div className="option-grid" style={{ marginTop: 'var(--space-sm)' }}>
+                            {options.tongueCoating.map(opt => (
+                                <div
+                                    key={opt}
+                                    className={`option-card ${wangZhen.tongueCoating === opt ? 'selected' : ''}`}
+                                    onClick={() => handleChange('tongueCoating', opt)}
+                                >
+                                    <div className="option-card-label">{opt}</div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* 舌形 */}
-            <div className="form-section">
-                <div className="form-section-title">📐 舌形</div>
-                <div className="option-grid wide">
-                    {data.tongueShape.map(item => (
-                        <div
-                            key={item.id}
-                            className={`option-card ${wangZhen.tongueShape === item.label ? 'selected' : ''}`}
-                            onClick={() => handleSelect('tongueShape', item.label)}
-                        >
-                            <div className="option-card-label">{item.label}</div>
-                            <div className="option-card-desc">{item.desc}</div>
+                    </div>
+                    <div>
+                        <label className="form-label">舌形</label>
+                        <div className="option-grid" style={{ marginTop: 'var(--space-sm)' }}>
+                            {options.tongueShape.map(opt => (
+                                <div
+                                    key={opt}
+                                    className={`option-card ${wangZhen.tongueShape === opt ? 'selected' : ''}`}
+                                    onClick={() => handleChange('tongueShape', opt)}
+                                >
+                                    <div className="option-card-label">{opt}</div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    </div>
                 </div>
             </div>
 
-            {/* 拍照识图 — 舌头 */}
             <div className="form-section">
-                <div className="form-section-title">📸 舌象拍照（可选）</div>
-                <div
-                    className={`photo-upload-area ${wangZhen.tonguePhoto ? 'has-image' : ''}`}
-                    onClick={() => tongueFileRef.current?.click()}
-                >
-                    {wangZhen.tonguePhoto ? (
-                        <img src={wangZhen.tonguePhoto} alt="舌象照片" className="photo-preview" />
-                    ) : (
-                        <>
-                            <div className="photo-upload-icon">📷</div>
-                            <div className="photo-upload-text">点击上传舌头照片，辅助舌象分析</div>
-                        </>
-                    )}
-                </div>
-                <input ref={tongueFileRef} type="file" accept="image/*" hidden onChange={(e) => handlePhoto('tonguePhoto', e)} />
-            </div>
-
-            {/* 体态 */}
-            <div className="form-section">
-                <div className="form-section-title">🧍 体态</div>
-                <div className="option-grid">
-                    {data.bodyType.map(item => (
-                        <div
-                            key={item.id}
-                            className={`option-card ${wangZhen.bodyType === item.label ? 'selected' : ''}`}
-                            onClick={() => handleSelect('bodyType', item.label)}
-                        >
-                            <div className="option-card-label">{item.label}</div>
+                <div className="form-section-title">体态与精神</div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-md)' }}>
+                    <div>
+                        <label className="form-label">体态</label>
+                        <div className="option-grid" style={{ marginTop: 'var(--space-sm)' }}>
+                            {options.bodyType.map(opt => (
+                                <div
+                                    key={opt}
+                                    className={`option-card ${wangZhen.bodyType === opt ? 'selected' : ''}`}
+                                    onClick={() => handleChange('bodyType', opt)}
+                                >
+                                    <div className="option-card-label">{opt}</div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* 精神 */}
-            <div className="form-section">
-                <div className="form-section-title">💡 精神状态</div>
-                <div className="option-grid">
-                    {data.spirit.map(item => (
-                        <div
-                            key={item.id}
-                            className={`option-card ${wangZhen.spirit === item.label ? 'selected' : ''}`}
-                            onClick={() => handleSelect('spirit', item.label)}
-                        >
-                            <div className="option-card-label">{item.label}</div>
+                    </div>
+                    <div>
+                        <label className="form-label">精神状态</label>
+                        <div className="option-grid" style={{ marginTop: 'var(--space-sm)' }}>
+                            {options.spirit.map(opt => (
+                                <div
+                                    key={opt}
+                                    className={`option-card ${wangZhen.spirit === opt ? 'selected' : ''}`}
+                                    onClick={() => handleChange('spirit', opt)}
+                                >
+                                    <div className="option-card-label">{opt}</div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    </div>
                 </div>
             </div>
         </div>

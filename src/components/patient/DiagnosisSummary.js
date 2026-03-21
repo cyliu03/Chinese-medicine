@@ -1,31 +1,41 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDiagnosis } from '@/context/DiagnosisContext';
-import { getRecommendations } from '@/lib/aiEngine';
+import { getAIModelRecommendation } from '@/lib/aiEngine';
 
 export default function DiagnosisSummary() {
     const router = useRouter();
     const { diagnosis, submitDiagnosis, setAiResults, setPatientSubmissions } = useDiagnosis();
     const { wangZhen, wenZhen, wenZhenAsk, qieZhen } = diagnosis;
 
-    const handleSubmit = () => {
-        // 运行AI推荐
-        const results = getRecommendations(diagnosis);
-        setAiResults(results);
+    const [isLoading, setIsLoading] = useState(false);
 
-        // 创建提交记录
-        const submission = {
-            id: Date.now().toString(),
-            patientName: '患者' + Math.floor(Math.random() * 1000),
-            timestamp: new Date().toISOString(),
-            diagnosis: JSON.parse(JSON.stringify(diagnosis)),
-            aiResults: results,
-            status: 'pending',
-        };
-        setPatientSubmissions(prev => [...prev, submission]);
+    const handleSubmit = async () => {
+        setIsLoading(true);
+        try {
+            // 运行AI推荐 (改为调用深度学习模型)
+            const results = await getAIModelRecommendation(diagnosis);
+            setAiResults(results);
 
-        router.push('/result');
+            // 创建提交记录
+            const submission = {
+                id: Date.now().toString(),
+                patientName: '患者' + Math.floor(Math.random() * 1000),
+                timestamp: new Date().toISOString(),
+                diagnosis: JSON.parse(JSON.stringify(diagnosis)),
+                aiResults: results,
+                status: 'pending',
+            };
+            setPatientSubmissions(prev => [...prev, submission]);
+
+            router.push('/result');
+        } catch (error) {
+            alert('AI分析请求失败，请检查网络连接或后端服务。');
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const SummaryItem = ({ label, value }) => {
@@ -100,8 +110,13 @@ export default function DiagnosisSummary() {
             </div>
 
             <div style={{ textAlign: 'center' }}>
-                <button className="btn btn-primary btn-lg pulse-animation" onClick={handleSubmit}>
-                    <span className="btn-icon">🤖</span> 提交AI智能分析
+                <button 
+                    className={`btn btn-primary btn-lg ${isLoading ? 'loading' : 'pulse-animation'}`} 
+                    onClick={handleSubmit}
+                    disabled={isLoading}
+                >
+                    <span className="btn-icon">{isLoading ? '⌛' : '🤖'}</span> 
+                    {isLoading ? '正在AI分析...' : '提交AI智能分析'}
                 </button>
                 <p style={{ color: 'var(--ink-gray)', fontSize: '0.8rem', marginTop: 'var(--space-sm)' }}>
                     AI将基于您的四诊信息，从经典方剂中智能匹配推荐

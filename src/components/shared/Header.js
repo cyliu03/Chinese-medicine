@@ -2,42 +2,44 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useApp } from '@/context/AppContext';
 
 export default function Header() {
     const pathname = usePathname();
-
-    const isActive = (path) => {
-        if (path === '/') return pathname === '/';
-        return pathname.startsWith(path);
-    };
+    const { userType, diagnoses, logout } = useApp();
+    const pendingCount = diagnoses.filter(d => d.status === 'pending').length;
 
     return (
         <header className="header">
             <Link href="/" className="header-logo">
-                <span className="header-logo-icon">🏥</span>
+                <div className="header-logo-icon">🏥</div>
                 <div>
                     <div className="header-title">岐黄AI</div>
-                    <div className="header-subtitle">中医智能辅助诊疗系统</div>
+                    <div className="header-subtitle">智能中医诊断系统</div>
                 </div>
             </Link>
+
             <nav className="header-nav">
-                <Link
-                    href="/"
-                    className={`header-nav-link ${isActive('/') && pathname === '/' ? 'active' : ''}`}
+                <Link 
+                    href="/" 
+                    className={`header-nav-link ${pathname === '/' ? 'active' : ''}`}
                 >
-                    🏠 首页
+                    首页
                 </Link>
-                <Link
-                    href="/patient"
-                    className={`header-nav-link ${isActive('/patient') ? 'active' : ''}`}
+                <Link 
+                    href="/patient" 
+                    className={`header-nav-link ${pathname?.startsWith('/patient') ? 'active' : ''}`}
                 >
-                    🩺 患者问诊
+                    患者端
                 </Link>
-                <Link
-                    href="/doctor"
-                    className={`header-nav-link ${isActive('/doctor') ? 'active' : ''}`}
+                <Link 
+                    href="/doctor" 
+                    className={`header-nav-link ${pathname?.startsWith('/doctor') ? 'active' : ''}`}
                 >
-                    👨‍⚕️ 医生工作台
+                    医生端
+                    {pendingCount > 0 && (
+                        <span className="nav-badge">{pendingCount}</span>
+                    )}
                 </Link>
             </nav>
         </header>

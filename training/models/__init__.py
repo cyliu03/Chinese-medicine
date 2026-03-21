@@ -1,3 +1,7 @@
-""" __init__.py for models package """
-from .tcm_net import TCMFormulaNet, MultiTaskLoss
-from .dataset import TCMDataset, TCMInferenceDataset
+"""
+TCM Formula Recommendation Models
+"""
+
+from .dataset import TCMDataset
+
+__all__ = ['TCMDataset']

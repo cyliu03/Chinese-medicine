@@ -1,22 +1,26 @@
-import './globals.css';
-import { DiagnosisProvider } from '@/context/DiagnosisContext';
+import '@/app/globals.css';
+import { AppProvider } from '@/context/AppContext';
 
 export const metadata = {
-  title: '岐黄AI — 中医智能辅助诊疗系统',
-  description: '基于深度学习的中医四诊合参智能系统，通过望闻问切采集患者信息，AI辅助推荐方剂，医生审核确保安全有效。',
-  keywords: '中医,AI,对症下药,望闻问切,方剂推荐,中药,智能诊疗',
+    title: '岐黄AI · 智能中医诊断系统',
+    description: '传承千年中医智慧，融合现代人工智能技术',
 };
 
 export default function RootLayout({ children }) {
-  return (
-    <html lang="zh-CN">
-      <body>
-        <DiagnosisProvider>
-          <div className="page-container">
-            {children}
-          </div>
-        </DiagnosisProvider>
-      </body>
-    </html>
-  );
+    return (
+        <html lang="zh-CN">
+            <head>
+                <meta charSet="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="icon" href="/favicon.ico" />
+            </head>
+            <body>
+                <AppProvider>
+                    <div className="page-container">
+                        {children}
+                    </div>
+                </AppProvider>
+            </body>
+        </html>
+    );
 }

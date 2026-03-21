@@ -1,91 +1,59 @@
-# 🏥 岐黄AI — 中医智能辅助诊疗系统
+# 🏥 岐黄AI - 智能中医诊断系统
 
-基于深度学习的中医四诊合参智能系统，通过望闻问切采集患者信息，AI辅助推荐经典方剂，医生审核确保安全有效。
+<div align="center">
 
-<p align="center">
-  <strong>望诊 → 闻诊 → 问诊 → 切诊 → AI分析 → 方剂推荐 → 医生审核</strong>
-</p>
+![岐黄AI](https://img.shields.io/badge/岐黄AI-智能中医诊断-DC143C?style=for-the-badge)
+![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python)
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=next.js)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
----
+**传承千年中医智慧，融合现代人工智能技术**
 
-## ✨ 功能特性
+[在线演示](#) | [快速开始](#-快速开始) | [文档](#-文档) | [模型下载](#-模型下载)
 
-### 🧑‍⚕️ 患者端 — 四诊信息采集
-
-| 诊法 | 功能说明 |
-|------|----------|
-| **望诊** | 面色/舌象/拍照识图，AI辅助分析面色和舌苔 |
-| **闻诊** | 声音/气味等信息录入 |
-| **问诊** | 25 种常见症状多选，涵盖全身/头面/胸腹/四肢等 |
-| **切诊** | 19 种脉象选择（浮/沉/迟/数/弦/滑等） |
-
-### 🤖 AI 引擎 — 智能辨证论治 (生成式推荐)
-
-- **证候标签提取**: 从四诊信息中提取中医症状特征集合
-- **Transformer 自动开方**: 放弃死板的死方匹配，采用纯生成式多任务学习，**直接预测对症的药材组合与克数**。
-- **动态加减**: AI像真实医师一样，根据患者个体的细微症状差异调整药味和剂量。
-
-### 📋 结果页
-
-- 推荐 Top3 方剂，标注来源（作者/典籍）、匹配度、修改理由
-- 详细展示方剂组成、剂量、功效和主治
-
-### 👨‍⚕️ 医生端 — 处方审核
-
-- 待审列表 → 双栏审核详情 → 批准/修改/驳回
-- 确保所有 AI 推荐经过专业医师审核
+</div>
 
 ---
 
-## 🛠️ 技术栈
+## 📖 项目简介
 
-| 层级 | 技术 | 说明 |
-|------|------|------|
-| **前端** | Next.js + React | 中国风水墨主题 UI，Vanilla CSS |
-| **AI 模型** | PyTorch + Transformer | TCMFormulaNet 多任务学习架构 |
-| **训练数据** | PTM 数据集 (TKDE 2018) | 98,000+ 真实中医处方 |
-| **知识库** | JSON | 120 味中药材 + 45 个经典方剂 |
+岐黄AI是一个基于深度学习的智能中医诊断系统，通过**推荐系统 + 深度学习模型并行融合**的方式，为患者提供智能问诊服务，并支持医生在线审核处方。
 
-### 生成式开方模型架构
+### ✨ 核心特性
+
+| 特性 | 描述 |
+|------|------|
+| 🩺 **智能问诊** | 患者端支持四诊（望闻问切）信息采集 |
+| 🤖 **AI诊断** | LSAN深度学习模型 + 规则匹配双引擎 |
+| 👨‍⚕️ **医生审核** | 医生端支持处方审核、编辑、批准 |
+| 📚 **知识库** | 内置15首经典名方，支持自定义添加 |
+| 🔍 **相似推荐** | 自动推荐相似病情的经典方剂 |
+
+---
+
+## 🏗️ 系统架构
 
 ```
-患者症状群 (multi-hot) → Embedding → Transformer Encoder (6层) → 药材组合预测头 (Multi-label)
-                                                              → 剂量回归预测头 (Log Scale MSE)
+┌─────────────────────────────────────────────────────────────────┐
+│                    岐黄AI 智能中医诊断系统                        │
+├─────────────────────────────────────────────────────────────────┤
+│  ┌─────────────────┐    ┌─────────────────┐                    │
+│  │    患者端        │    │    医生端        │                    │
+│  │  ·智能问诊       │    │  ·诊断审核       │                    │
+│  │  ·四诊采集       │    │  ·处方编辑       │                    │
+│  │  ·AI诊断结果     │    │  ·患者管理       │                    │
+│  └────────┬────────┘    └────────┬────────┘                    │
+│           └──────────┬───────────┘                              │
+│                      ▼                                          │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │              双引擎AI诊断服务                             │   │
+│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐      │   │
+│  │  │ 推荐系统    │  │ 深度学习    │  │ 并行融合    │      │   │
+│  │  │ (规则匹配)  │  │ (LSAN模型)  │  │ (加权投票)  │      │   │
+│  │  └─────────────┘  └─────────────┘  └─────────────┘      │   │
+│  └─────────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────────┘
 ```
-
----
-
-## 📊 数据集
-
-本项目使用两个数据源用于深度学习训练：
-
-### 1. PTM 处方数据集（主要数据源）
-
-| 项目 | 详情 |
-|------|------|
-| **论文** | Liang Yao et al., "A Topic Modeling Approach for Traditional Chinese Medicine Prescriptions", IEEE TKDE 2018 |
-| **GitHub** | [yao8839836/PTM](https://github.com/yao8839836/PTM) |
-| **规模** | **98,334** 条真实中医处方，含症状描述和药材组成 |
-| **来源** | 中国工程科学知识中心 (CKCEST) |
-| **许可** | ⚠️ 仅限研究用途，禁止商业使用 |
-
-### 2. 经典方剂知识库（项目自带）
-
-| 项目 | 详情 |
-|------|------|
-| **方剂** | 45 个经典方剂（伤寒论 / 金匮要略 / 温病条辨 / 太平惠民和剂局方等） |
-| **药材** | 120 味常用中药，含性味归经、功效、用量等详细信息 |
-| **格式** | 结构化 JSON，含 symptomTags、证候分类、剂量、加减法 |
-
-### 训练数据统计 (经过低频噪声过滤后)
-
-| 指标 | 数量 |
-|------|------|
-| 清洗后处方总数 | 257,001 (含数据增强) |
-| 训练集样本 | 218,451 |
-| 验证集样本 | 38,550 |
-| 核心药材种类 | ~4,400 味 |
-| 核心症状标签 | ~3,300 个 |
 
 ---
 
@@ -93,57 +61,103 @@
 
 ### 环境要求
 
-- **前端**: Node.js 18+
-- **训练**: Python 3.10+, PyTorch 2.0+, NVIDIA GPU (推荐 RTX 5090, CUDA 13.0)
+| 软件 | 版本 |
+|------|------|
+| Python | 3.8+ |
+| Node.js | 18+ |
+| pip | 最新版 |
+| npm | 最新版 |
 
-### 1️⃣ 前端 Web 界面
-
-```bash
-# 安装依赖
-npm install
-
-# 启动开发服务器
-npm run dev
-
-# 访问 http://localhost:3000
-```
-
-### 2️⃣ 深度学习训练
+### 安装步骤
 
 ```bash
-cd training
+# 1. 克隆仓库
+git clone https://github.com/cyliu03/Chinese-medicine.git
+cd Chinese-medicine
 
-# 安装 PyTorch (RTX 5090 需要 CUDA 13.0)
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu130
+# 2. 下载模型文件（从ModelScope或HuggingFace）
+# 模型文件较大，需要单独下载
+# 下载地址见下方"模型下载"章节
+
+# 3. 安装后端依赖
+cd server
 pip install -r requirements.txt
 
-# Step 1: 下载数据集 — 从 GitHub 获取 PTM 98K 处方数据
-python scripts/download_dataset.py
+# 4. 安装前端依赖
+cd ..
+npm install
 
-# Step 2: 预处理 — 转换为训练格式，生成词表和训练/验证集
-python scripts/prepare_data.py --use_raw
+# 5. 启动服务
+# Windows
+start.bat
 
-# Step 3: 训练模型 — RTX 5090 推荐参数 (~11小时)
-python scripts/train.py \
-    --device cuda \
-    --epochs 200 \
-    --batch_size 64 \
-    --lr 0.0005 \
-    --embed_dim 512 \
-    --num_layers 6 \
-    --dim_feedforward 1024
-
-# Step 4: 评估模型
-python scripts/evaluate.py --checkpoint checkpoints/best_model.pt
-
-# Step 5: 导出为 API 可用模型
-python scripts/export_model.py --checkpoint checkpoints/best_model.pt --output models/tcm_model.pt
+# Mac/Linux
+./start.sh
 ```
 
-> **提示**: 如果仅需快速测试，可用 CPU 模式运行少量 epoch:
-> ```bash
-> python scripts/train.py --device cpu --epochs 10 --batch_size 8
-> ```
+### 访问地址
+
+| 服务 | 地址 |
+|------|------|
+| 首页 | http://localhost:3000 |
+| 患者端 | http://localhost:3000/patient |
+| 医生端 | http://localhost:3000/doctor |
+| 后端API | http://localhost:8000/docs |
+
+---
+
+## 📥 模型下载
+
+由于模型文件较大（~57MB），我们将其托管在ModelScope和HuggingFace上：
+
+### 方式一：ModelScope（国内推荐）
+
+```python
+from modelscope import snapshot_download
+
+# 下载整个模型仓库
+model_dir = snapshot_download('cyliu/qihuang-ai-model')
+print(f"模型下载到: {model_dir}")
+```
+
+### 方式二：HuggingFace
+
+**使用huggingface_hub**
+```python
+from huggingface_hub import hf_hub_download
+
+# 下载模型文件
+model_path = hf_hub_download(
+    repo_id="cyliu/qihuang-ai-model",
+    filename="best_model.pt",
+    local_dir="./training/checkpoints"
+)
+
+# 下载词汇表
+data_path = hf_hub_download(
+    repo_id="cyliu/qihuang-ai-model",
+    filename="meta.json",
+    local_dir="./data/chatmed"
+)
+```
+
+**手动下载**
+1. 访问 [ModelScope模型仓库](https://modelscope.cn/models/cyliu/qihuang-ai-model) 或 [HuggingFace模型仓库](https://huggingface.co/cyliu/qihuang-ai-model)
+2. 下载 `best_model.pt` 到 `training/checkpoints/`
+3. 下载 `meta.json` 到 `data/chatmed/`
+
+---
+
+## 📊 模型信息
+
+| 指标 | 数值 |
+|------|------|
+| 模型架构 | LSAN (Label-Specific Attention Network) |
+| 训练样本 | 54,204 条 |
+| 症状种类 | 9,629 种 |
+| 中药种类 | 273 种 |
+| 测试集F1 | 0.386 |
+| 数据来源 | ChatMed_TCM |
 
 ---
 
@@ -151,74 +165,115 @@ python scripts/export_model.py --checkpoint checkpoints/best_model.pt --output m
 
 ```
 Chinese-medicine/
-├── README.md                    # 本文件
-├── package.json                 # Node.js 依赖
-├── next.config.mjs              # Next.js 配置
-│
-├── src/                         # === 前端 (Next.js) ===
-│   ├── app/                     # 页面路由
-│   │   ├── page.js              # 首页
-│   │   ├── patient/             # 患者四诊问诊流程
-│   │   ├── result/              # AI 推荐结果页
-│   │   └── doctor/              # 医生审核端
-│   ├── components/              # React 组件库
-│   ├── context/                 # 全局状态 (React Context)
-│   ├── data/                    # 中药知识库 (JSON)
-│   │   ├── herbs.json           # 120 味中药材详情
-│   │   ├── formulas.json        # 45 个经典方剂
-│   │   └── symptoms.json        # 症状/证候分类
-│   └── lib/                     # AI 引擎 (规则匹配层)
-│
-├── training/                    # === 深度学习训练 ===
-│   ├── README.md                # 训练模块说明
-│   ├── requirements.txt         # Python 依赖
-│   ├── scripts/
-│   │   ├── download_dataset.py  # 数据集下载 (PTM 98K)
-│   │   ├── prepare_data.py      # 数据预处理
-│   │   ├── train.py             # 模型训练
-│   │   ├── evaluate.py          # 模型评估
-│   │   └── export_model.py      # 模型导出
-│   ├── models/
-│   │   ├── tcm_net.py           # TCMFormulaNet 模型定义
-│   │   └── dataset.py           # PyTorch Dataset
-│   ├── data/                    # 训练数据 (git ignored)
-│   ├── checkpoints/             # 模型检查点 (git ignored)
-│   └── logs/                    # TensorBoard 日志
-│
-└── public/                      # 静态资源
+├── src/                    # 前端源代码
+│   ├── app/                # 页面
+│   │   ├── page.js         # 首页
+│   │   ├── patient/        # 患者端
+│   │   └── doctor/         # 医生端
+│   ├── components/         # 组件
+│   ├── context/            # 状态管理
+│   ├── lib/                # 工具库
+│   │   ├── aiEngine.js     # AI诊断引擎
+│   │   └── formulaKnowledge.js  # 药方知识库
+│   └── data/               # 静态数据
+├── server/                 # 后端服务
+│   ├── main.py             # FastAPI主程序
+│   ├── predictor.py        # 模型预测器
+│   └── requirements.txt    # Python依赖
+├── training/               # 训练相关
+│   ├── checkpoints/        # 模型权重（需单独下载）
+│   ├── models/             # 模型定义
+│   ├── scripts/            # 训练脚本
+│   └── configs/            # 配置文件
+├── data/                   # 数据目录
+│   └── chatmed/            # ChatMed数据集
+├── docs/                   # 文档
+│   ├── 技术文档.md
+│   └── 测试文档.md
+├── start.bat               # Windows启动脚本
+├── start.ps1               # PowerShell启动脚本
+├── docker-compose.yml      # Docker部署配置
+└── README.md
 ```
 
 ---
 
-## 📜 引用
+## 🔧 技术栈
 
-如使用本项目中的 PTM 数据集进行研究，请引用原始论文：
+### 前端
+- **框架**: Next.js 16 (React)
+- **样式**: CSS Modules
+- **状态管理**: React Context
 
-```bibtex
-@article{yao2018topic,
-  title     = {A Topic Modeling Approach for Traditional Chinese Medicine Prescriptions},
-  author    = {Yao, Liang and Zhang, Yin and Wei, Baogang and Zhang, Wenjin and Jin, Zhe},
-  journal   = {IEEE Transactions on Knowledge and Data Engineering},
-  volume    = {30},
-  number    = {6},
-  pages     = {1007--1021},
-  year      = {2018},
-  publisher = {IEEE}
-}
-```
+### 后端
+- **框架**: FastAPI
+- **深度学习**: PyTorch
+- **模型**: LSAN (Label-Specific Attention Network)
+
+### AI引擎
+- **推荐系统**: 规则匹配 + 症状标签
+- **深度学习**: LSAN模型
+- **并行融合**: 加权投票
+
+---
+
+## 📚 文档
+
+- [技术文档](docs/技术文档.md) - 详细的系统架构和算法说明
+- [测试文档](docs/测试文档.md) - 测试用例和测试报告
+- [部署指南](部署指南.md) - 本地部署教程
+- [在线部署指南](在线部署指南.md) - 云端部署教程
+
+---
+
+## 🎯 使用流程
+
+### 患者端
+1. 填写基本信息
+2. 完成四诊采集（望闻问切）
+3. 查看AI诊断结果
+4. 提交给医生审核
+
+### 医生端
+1. 查看待审核诊断列表
+2. 审核AI推荐处方
+3. 查看相似病情名医药方
+4. 编辑处方（可选）
+5. 批准或驳回
 
 ---
 
 ## ⚠️ 免责声明
 
-本系统仅供**学习研究**和**辅助参考**使用，**不替代专业医疗诊断**。
-
-- 所有 AI 推荐的处方必须经**执业中医师审核**后方可使用
-- PTM 数据集版权归 CKCEST 所有，仅限研究用途，禁止商业使用
-- 本项目不对任何因使用本系统产生的医疗后果承担责任
+本系统**仅供学习和研究使用**，不用于实际医疗诊断。AI推荐结果仅供参考，不能替代专业医生的诊断。如有健康问题，请咨询专业医疗机构。
 
 ---
 
-## 📄 License
+## 📄 许可证
 
-本项目代码部分采用 MIT License。数据集部分遵循各自的许可协议。
+本项目采用 MIT 许可证。详见 [LICENSE](LICENSE) 文件。
+
+---
+
+## 🙏 致谢
+
+- 数据来源: [ChatMed_TCM](https://huggingface.co/datasets/michaelwzhu/shenong_tcm_dataset)
+- 经典方剂: 《伤寒论》、《太平惠民和剂局方》等
+
+---
+
+## 📞 联系方式
+
+如有问题或建议，欢迎：
+- 提交 [Issue](https://github.com/cyliu03/Chinese-medicine/issues)
+- 发起 [Pull Request](https://github.com/cyliu03/Chinese-medicine/pulls)
+
+---
+
+<div align="center">
+
+**⭐ 如果这个项目对您有帮助，请给一个Star支持一下！⭐**
+
+Made with ❤️ by 岐黄AI Team
+
+</div>

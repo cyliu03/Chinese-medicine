@@ -1,30 +1,86 @@
 # Dependencies
 node_modules/
-/.pnp
-.pnp.js
 
 # Testing
-/coverage
+coverage/
 
 # Next.js
-/.next/
-/out/
+.next/
+out/
 
 # Production
-/build
+build/
+dist/
 
 # Misc
 .DS_Store
 *.pem
-.env*.local
 
 # Debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Local env files
+.env
+.env*.local
+
 # Vercel
 .vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+ENV/
+env/
+.venv/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# PyTorch模型文件（上传到模型平台）
+*.pt
+*.pth
+*.bin
+*.h5
+*.pkl
+*.pickle
+
+# 大型数据文件
+data/chatmed/train_data.json
+data/chatmed/chatmed_parsed.json
+training/data/chatmed/train_data.json
+training/data/chatmed/chatmed_parsed.json
+training/scripts/raw_data/
+
+# 训练日志
+training/logs/
+
+# 临时文件
+*.log
+*.tmp
+.cache/
 
 # IDE
 .idea/
@@ -32,5 +88,18 @@ yarn-error.log*
 *.swp
 *.swo
 
-# OS
+# 系统文件
 Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# 打包文件
+*.zip
+*.tar.gz
+*.rar
+
+# 安装包
+*.msi
+
+# 构建输出
+build/qihuang-ai-*/
