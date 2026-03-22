@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+  # 前端服务
   frontend:
     build:
       context: .
@@ -11,17 +12,25 @@ services:
       - NEXT_PUBLIC_MODEL_API_URL=http://backend:8000
     depends_on:
       - backend
+    networks:
+      - tcm-network
 
+  # 后端服务
   backend:
     build:
       context: ./server
-      dockerfile: ./server/Dockerfile
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
+    environment:
+      - MODEL_PATH=/app/model/best_model.pt
+      - VOCAB_DIR=/app/model
     volumes:
-      - ./checkpoints:/app/checkpoints
-      - ./data:/app/data
+      - ./training/checkpoints:/app/model
+      - ./data/chatmed:/app/vocab
+    networks:
+      - tcm-network
 
-volumes:
-  checkpoints:
-  data:
+networks:
+  tcm-network:
+    driver: bridge

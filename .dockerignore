@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+
+# Build output
+.next/
+out/
+build/
+
+# Git
+.git/
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+venv/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Testing
+coverage/
+
+# Misc
+.DS_Store
+*.log
+*.tmp
+
+# Claude
+.claude/
+
+# 大文件（模型需要单独挂载）
+*.pt
+*.pth
+
+# 数据文件
+data/chatmed/*.json
+!data/chatmed/meta.json

@@ -68,7 +68,25 @@
 | pip | 最新版 |
 | npm | 最新版 |
 
-### 安装步骤
+### 方式一：Docker部署（推荐）
+
+```bash
+# 1. 克隆仓库
+git clone https://github.com/cyliu03/Chinese-medicine.git
+cd Chinese-medicine
+
+# 2. 下载模型文件
+python -c "from modelscope import snapshot_download; snapshot_download('cy1750/qihuang-ai-model', cache_dir='./training/checkpoints')"
+
+# 3. 启动Docker服务
+# Windows
+docker-start.bat
+
+# Mac/Linux
+chmod +x docker-start.sh && ./docker-start.sh
+```
+
+### 方式二：本地开发
 
 ```bash
 # 1. 克隆仓库
@@ -219,8 +237,7 @@ Chinese-medicine/
 
 - [技术文档](docs/技术文档.md) - 详细的系统架构和算法说明
 - [测试文档](docs/测试文档.md) - 测试用例和测试报告
-- [部署指南](部署指南.md) - 本地部署教程
-- [在线部署指南](在线部署指南.md) - 云端部署教程
+- [部署指南](docs/部署指南.md) - 本地部署教程
 
 ---
 
